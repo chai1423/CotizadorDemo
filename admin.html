@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Interno | Cotizador Demo</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container nav-container">
+            <div class="logo">Cotizador&nbsp;<span>Demo</span></div>
+            <nav class="nav">
+                <ul id="navListAdmin">
+                    <li><a href="index.html#catalogo">Catálogo</a></li>
+                    <li><a href="index.html#calculadora">Calculadora</a></li>
+                    <li><a href="index.html#cotizacion">Cotización</a></li>
+                    <li><a href="#">Panel</a></li>
+                </ul>
+                <button id="mobileMenuBtnAdmin" class="mobile-menu-btn" aria-label="Menú">☰</button>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="admin" id="admin">
+        <div class="container">
+            <h2>Panel de Cotizaciones</h2>
+            <p class="section-description">Revisa las cotizaciones generadas en la demo.</p>
+            <!-- Tarjetas de métricas -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3 id="metricCount">0</h3>
+                    <p>Cotizaciones del día</p>
+                </div>
+                <div class="metric-card">
+                    <h3 id="metricMonto">$0.00</h3>
+                    <p>Monto cotizado</p>
+                </div>
+                <div class="metric-card">
+                    <h3 id="metricPendientes">0</h3>
+                    <p>Cotizaciones pendientes</p>
+                </div>
+                <div class="metric-card">
+                    <h3 id="metricConversion">0%</h3>
+                    <p>Conversión estimada</p>
+                </div>
+            </div>
+            <!-- Tabla de cotizaciones -->
+            <div class="table-responsive">
+                <table class="cot-table">
+                    <thead>
+                        <tr>
+                            <th>Folio</th>
+                            <th>Cliente</th>
+                            <th>Total</th>
+                            <th>Estatus</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaCotizaciones">
+                        <!-- Se insertarán filas dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>Demo preliminar desarrollada por <strong>Solertia Group</strong>. Uso exclusivo para evaluación comercial.</p>
+        </div>
+    </footer>
+    
+    <!-- Modal para acciones -->
+    <div id="adminModal" class="modal hidden">
+        <div class="modal-content">
+            <span id="adminModalClose" class="modal-close">&times;</span>
+            <p id="adminModalMessage"></p>
+        </div>
+    </div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>

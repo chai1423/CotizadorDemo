@@ -1,0 +1,58 @@
+/*
+ * Estilos responsivos para la demo de cotizador.
+ * Ajustan el diseño para tabletas y móviles.
+ */
+
+/* Tablet */
+@media (max-width: 992px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    .hero-content p {
+        font-size: 1rem;
+    }
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+    .calc-form {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+    .cot-table th, .cot-table td {
+        font-size: 0.75rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    /* Navegación móvil */
+    .nav ul {
+        display: none;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: var(--color-primary);
+        flex-direction: column;
+        width: 200px;
+        padding: 1rem;
+        border-radius: 0 0 0 var(--radius);
+        box-shadow: var(--shadow);
+    }
+    .nav ul.open {
+        display: flex;
+    }
+    .mobile-menu-btn {
+        display: block;
+    }
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+    .hero {
+        padding: 3rem 0;
+    }
+    .hero-content h1 {
+        font-size: 1.75rem;
+    }
+    .hero-content p {
+        font-size: 0.95rem;
+    }
+}
