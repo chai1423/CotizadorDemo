@@ -4,19 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotizador Inteligente | Demo</title>
-
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/animations.css">
-
+    <!-- Fuente Google para un look profesional -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
+    <!-- Navegación principal -->
     <header class="header">
         <div class="container nav-container">
             <div class="logo">Cotizador&nbsp;<span>Demo</span></div>
-
             <nav class="nav">
                 <ul id="navList">
                     <li><a href="#catalogo">Catálogo</a></li>
@@ -24,27 +22,16 @@
                     <li><a href="#cotizacion">Cotización</a></li>
                     <li><a href="admin.html">Panel</a></li>
                 </ul>
-
                 <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Menú">☰</button>
             </nav>
         </div>
     </header>
 
+    <!-- Sección Hero -->
     <section class="hero" id="hero">
         <div class="container hero-content">
-            <h1>Cotizador Inteligente para Concreto y Materiales</h1>
-
-            <p>
-                Cotiza concreto, agregados y materiales de construcción en minutos,
-                con cálculo guiado, precios organizados y seguimiento comercial desde un solo lugar.
-            </p>
-
-            <div class="hero-benefits">
-                <span>Catálogo organizado</span>
-                <span>Cálculo preliminar</span>
-                <span>Seguimiento comercial</span>
-            </div>
-
+            <h1>Cotiza concreto, agregados y materiales de construcción en minutos</h1>
+            <p>Con cálculos guiados, precios organizados y seguimiento comercial en un solo lugar.</p>
             <div class="hero-buttons">
                 <a href="#catalogo" class="btn primary">Iniciar cotización</a>
                 <a href="admin.html" class="btn secondary">Ver demo del panel</a>
@@ -52,24 +39,23 @@
         </div>
     </section>
 
+    <!-- Sección Catálogo de productos -->
     <section class="catalogo" id="catalogo">
         <div class="container">
             <h2>Catálogo de productos</h2>
-
-            <p class="section-description">
-                Selecciona productos, filtra por categoría y agrégalos a la cotización.
-            </p>
-
+            <p class="section-description">Selecciona productos y agrégalos a tu cotización.</p>
+            <!-- Filtros -->
             <div class="filters">
+                <!-- Tipo de producto -->
                 <select id="filterTipo">
                     <option value="">Todos los tipos</option>
                     <option value="Concreto">Concreto</option>
-                    <option value="Cemento">Cemento</option>
+                    <option value="Cementos">Cementos</option>
                     <option value="Agregados">Agregados</option>
                     <option value="Servicios">Servicios</option>
                     <option value="Aditivos">Aditivos</option>
                 </select>
-
+                <!-- Unidad de medida -->
                 <select id="filterUnidad">
                     <option value="">Todas las unidades</option>
                     <option value="m³">m³</option>
@@ -77,8 +63,18 @@
                     <option value="bulto">Bulto</option>
                     <option value="servicio">Servicio</option>
                     <option value="litro">Litro</option>
+                    <option value="kg">kg</option>
                 </select>
-
+                <!-- Resistencia del concreto -->
+                <select id="filterResistencia">
+                    <option value="">Todas las resistencias</option>
+                    <option value="100">f’c 100</option>
+                    <option value="150">f’c 150</option>
+                    <option value="200">f’c 200</option>
+                    <option value="250">f’c 250</option>
+                    <option value="300">f’c 300</option>
+                </select>
+                <!-- Uso o aplicación -->
                 <select id="filterUso">
                     <option value="">Todos los usos</option>
                     <option value="losa">Losa</option>
@@ -87,23 +83,23 @@
                     <option value="relleno">Relleno</option>
                     <option value="pavimento">Pavimento</option>
                     <option value="muro">Muro</option>
+                    <option value="banqueta">Banqueta</option>
                 </select>
-
+                <!-- Búsqueda por nombre -->
                 <input type="text" id="searchProducto" placeholder="Buscar producto...">
             </div>
-
-            <div class="product-grid" id="productGrid"></div>
+            <!-- Contenedor de tarjetas de productos -->
+            <div class="product-grid" id="productGrid">
+                <!-- Se insertarán productos dinámicamente -->
+            </div>
         </div>
     </section>
 
+    <!-- Sección Calculadora de materiales -->
     <section class="calculadora" id="calculadora">
         <div class="container">
             <h2>Calculadora de materiales</h2>
-
-            <p class="section-description">
-                Obtén una estimación preliminar de materiales según tus medidas.
-            </p>
-
+            <p class="section-description">Obtén una estimación preliminar de materiales según tus medidas.</p>
             <form id="calcForm" class="calc-form">
                 <div class="form-row">
                     <label for="tipoCalculo">Tipo de cálculo</label>
@@ -114,84 +110,80 @@
                         <option value="zapata">Zapata / Cimentación</option>
                     </select>
                 </div>
-
                 <div class="form-row">
                     <label for="largo">Largo (m)</label>
-                    <input type="number" id="largo" step="0.01" min="0" placeholder="Ej. 20" required>
+                    <input type="number" id="largo" step="0.01" min="0" required>
                 </div>
-
                 <div class="form-row">
                     <label for="ancho">Ancho (m)</label>
-                    <input type="number" id="ancho" step="0.01" min="0" placeholder="Ej. 30" required>
+                    <input type="number" id="ancho" step="0.01" min="0" required>
                 </div>
-
                 <div class="form-row">
                     <label for="altoEspesor">Altura/Espesor (m)</label>
-                    <input type="number" id="altoEspesor" step="0.01" min="0" placeholder="Ej. 0.12" required>
+                    <input type="number" id="altoEspesor" step="0.01" min="0" required>
                 </div>
-
                 <div class="form-row">
                     <label for="desperdicio">Margen de desperdicio (%)</label>
                     <input type="number" id="desperdicio" step="1" min="0" max="50" value="10" required>
                 </div>
-
                 <button type="submit" class="btn primary">Calcular cantidad</button>
             </form>
 
+            <!-- Resultado preliminar -->
             <div id="resultadoCalculo" class="calc-result hidden">
                 <h3>Resultado preliminar</h3>
-
                 <p>Volumen estimado: <span id="volumenEst">0</span> m³</p>
                 <p>Margen de desperdicio: <span id="desperdicioEst">0</span> m³</p>
                 <p>Cantidad sugerida: <span id="cantidadSugerida">0</span> m³</p>
-
-                <p class="nota">
-                    * Cálculo preliminar sujeto a validación técnica.
-                </p>
+                <p class="nota">* Cálculo preliminar sujeto a validación técnica.</p>
             </div>
 
+            <!-- Vista previa 3D del área -->
             <div id="previewTerreno" class="calc-preview hidden">
                 <div class="preview-header">
                     <div>
-                        <h3>Previsualización del área</h3>
-                        <p class="preview-description">
-                            Vista referencial según las medidas capturadas.
-                        </p>
+                        <h3>Previsualización 3D del área</h3>
+                        <p class="preview-description">Representación aproximada según tus dimensiones.</p>
                     </div>
-
-                    <span class="preview-badge">Vista demo</span>
+                    <span class="preview-badge">Vista 3D</span>
                 </div>
-
-                <div class="preview-canvas-wrapper">
-                    <canvas id="terrenoCanvas" width="700" height="360"></canvas>
+                <div class="preview-body">
+                    <!-- Columna canvas -->
+                    <div class="canvas-column">
+                        <div class="preview-canvas-wrapper">
+                            <canvas id="terrenoCanvas" width="700" height="360"></canvas>
+                        </div>
+                    </div>
+                    <!-- Columna meta -->
+                    <div class="meta-column">
+                        <div class="preview-meta">
+                            <p><strong>Tipo:</strong> <span id="previewTipo">--</span></p>
+                            <p><strong>Largo:</strong> <span id="previewLargo">0</span> m</p>
+                            <p><strong>Ancho:</strong> <span id="previewAncho">0</span> m</p>
+                            <p><strong>Espesor/Altura:</strong> <span id="previewEspesor">0</span> m</p>
+                            <p><strong>Área:</strong> <span id="previewArea">0</span> m²</p>
+                            <p><strong>Volumen:</strong> <span id="previewVolumen">0</span> m³</p>
+                        </div>
+                        <!-- Contenedor de recomendación -->
+                        <div id="recommendation" class="recommendation hidden">
+                            <h4>Recomendación preliminar</h4>
+                            <p id="recommendationText"></p>
+                            <button id="btnContactar" type="button" class="btn primary">Contactar especialista</button>
+                            <p class="recomendacion-note">* La recomendación es orientativa. Consulte a un especialista para cálculo exacto.</p>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="preview-meta">
-                    <p><strong>Tipo:</strong> <span id="previewTipo">--</span></p>
-                    <p><strong>Largo:</strong> <span id="previewLargo">0</span> m</p>
-                    <p><strong>Ancho:</strong> <span id="previewAncho">0</span> m</p>
-                    <p><strong>Altura/Espesor:</strong> <span id="previewEspesor">0</span> m</p>
-                    <p><strong>Área:</strong> <span id="previewArea">0</span> m²</p>
-                    <p><strong>Volumen:</strong> <span id="previewVolumen">0</span> m³</p>
-                </div>
-
-                <p class="preview-note">
-                    Esta previsualización es ilustrativa. No sustituye planos, memoria de cálculo ni validación técnica.
-                </p>
+                <p class="preview-note">Esta ilustración es referencial y no sustituye planos ni cálculos estructurales.</p>
             </div>
         </div>
     </section>
 
+    <!-- Sección Cotización -->
     <section class="cotizacion" id="cotizacion">
         <div class="container">
             <h2>Resumen de cotización</h2>
-
-            <p class="section-description">
-                Revisa los productos y cantidades agregadas, luego genera tu cotización.
-            </p>
-
+            <p class="section-description">Revisa los productos y cantidades agregadas, luego genera tu cotización.</p>
             <div id="cotizacionLista" class="cotizacion-lista"></div>
-
             <div id="cotizacionTotal" class="cotizacion-total hidden">
                 <p>Subtotal: $<span id="subtotal">0.00</span> MXN</p>
                 <p>Costo de entrega: $<span id="costoEntrega">0.00</span> MXN</p>
@@ -199,48 +191,40 @@
                 <p class="vigencia">Vigencia: <span id="vigencia">--</span></p>
                 <p class="folio">Folio: <span id="folio">--</span></p>
             </div>
-
             <div class="cotizacion-actions">
                 <button id="btnGenerarCot" class="btn primary" disabled>Generar cotización</button>
                 <button id="btnEnviarWA" class="btn secondary" disabled>Simular envío WhatsApp</button>
                 <button id="btnDescargar" class="btn secondary" disabled>Descargar cotización</button>
                 <button id="btnLimpiar" class="btn danger" disabled>Limpiar cotización</button>
             </div>
-
+            <!-- Formulario de cliente -->
             <div id="clienteFormContainer" class="cliente-form-container hidden">
                 <h3>Datos del cliente</h3>
-
                 <form id="clienteForm" class="cliente-form">
                     <div class="form-row">
                         <label for="nombreCliente">Nombre</label>
                         <input type="text" id="nombreCliente" required>
                     </div>
-
                     <div class="form-row">
                         <label for="telefonoCliente">Teléfono</label>
                         <input type="tel" id="telefonoCliente" required>
                     </div>
-
                     <div class="form-row">
                         <label for="correoCliente">Correo</label>
                         <input type="email" id="correoCliente" required>
                     </div>
-
                     <div class="form-row">
                         <label for="ubicacionEntrega">Ubicación de entrega</label>
                         <input type="text" id="ubicacionEntrega" required>
                     </div>
-
                     <div class="form-row">
                         <label for="tipoObra">Tipo de obra</label>
                         <input type="text" id="tipoObra" required>
                     </div>
-
                     <div class="form-row">
                         <label for="fechaEntrega">Fecha tentativa de entrega</label>
                         <input type="date" id="fechaEntrega" required>
                     </div>
-
                     <div class="form-row">
                         <label for="requiereFactura">¿Requiere factura?</label>
                         <select id="requiereFactura" required>
@@ -248,27 +232,31 @@
                             <option value="no">No</option>
                         </select>
                     </div>
-
                     <div class="form-row">
                         <label for="comentarios">Comentarios adicionales</label>
                         <textarea id="comentarios" rows="3"></textarea>
                     </div>
-
+                    <!-- Aviso de privacidad -->
+                    <div class="form-row privacy-row">
+                        <label>
+                            <input type="checkbox" id="avisoPrivacidad" required>
+                            He leído y acepto el aviso de privacidad
+                        </label>
+                    </div>
                     <button type="submit" class="btn primary">Guardar datos</button>
                 </form>
             </div>
         </div>
     </section>
 
+    <!-- Pie de página -->
     <footer class="footer">
         <div class="container footer-content">
-            <p>
-                Demo preliminar desarrollada por <strong>Solertia Group</strong>.
-                Uso exclusivo para evaluación comercial.
-            </p>
+            <p>Demo preliminar desarrollada por <strong>Solertia Group</strong>. Uso exclusivo para evaluación comercial.</p>
         </div>
     </footer>
 
+    <!-- Modal genérico -->
     <div id="modal" class="modal hidden">
         <div class="modal-content">
             <span id="modalClose" class="modal-close">&times;</span>
@@ -276,6 +264,15 @@
         </div>
     </div>
 
+    <!-- Modal de contacto -->
+    <div id="contactModal" class="modal hidden">
+        <div class="modal-content">
+            <span id="contactModalClose" class="modal-close">&times;</span>
+            <p>Para asesoría personalizada, comunícate con nuestro especialista de <strong>Concretos Hidalgo</strong> al <strong>55&nbsp;1234&nbsp;5678</strong> o escribe a <strong>asesor@concretos-hidalgo.com</strong>. Esta es una demostración.</p>
+        </div>
+    </div>
+
     <script src="js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>
 </html>

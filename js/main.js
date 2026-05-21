@@ -2,92 +2,76 @@
     'use strict';
 
     const productos = [
-        {
-            id: 1,
-            nombre: 'Concreto premezclado',
-            categoria: 'Concreto',
-            unidad: 'm³',
-            precio: 1200,
-            usos: ['losa', 'firme', 'cimentación', 'pavimento'],
-            descripcion: 'Concreto premezclado para obras generales.'
-        },
-        {
-            id: 2,
-            nombre: 'Cemento',
-            categoria: 'Cemento',
-            unidad: 'bulto',
-            precio: 200,
-            usos: ['cimentación', 'muro', 'piso'],
-            descripcion: 'Cemento gris de alta resistencia.'
-        },
-        {
-            id: 3,
-            nombre: 'Arena',
-            categoria: 'Agregados',
-            unidad: 'tonelada',
-            precio: 350,
-            usos: ['relleno', 'mortero', 'concreto'],
-            descripcion: 'Arena lavada para construcción.'
-        },
-        {
-            id: 4,
-            nombre: 'Grava',
-            categoria: 'Agregados',
-            unidad: 'tonelada',
-            precio: 450,
-            usos: ['concreto', 'relleno'],
-            descripcion: 'Grava de 3/4” para mezclas.'
-        },
-        {
-            id: 5,
-            nombre: 'Mortero',
-            categoria: 'Cemento',
-            unidad: 'bulto',
-            precio: 180,
-            usos: ['muro', 'piso'],
-            descripcion: 'Mortero para pegar block y ladrillo.'
-        },
-        {
-            id: 6,
-            nombre: 'Base hidráulica',
-            categoria: 'Agregados',
-            unidad: 'tonelada',
-            precio: 300,
-            usos: ['pavimento', 'firme'],
-            descripcion: 'Material de base para obras viales.'
-        },
-        {
-            id: 7,
-            nombre: 'Tezontle',
-            categoria: 'Agregados',
-            unidad: 'tonelada',
-            precio: 280,
-            usos: ['relleno', 'drenaje'],
-            descripcion: 'Piedra rojiza para rellenos y jardinería.'
-        },
-        {
-            id: 8,
-            nombre: 'Bombeo de concreto',
-            categoria: 'Servicios',
-            unidad: 'servicio',
-            precio: 800,
-            usos: ['concreto'],
-            descripcion: 'Servicio de bombeo para obras de concreto.'
-        },
-        {
-            id: 9,
-            nombre: 'Aditivos',
-            categoria: 'Aditivos',
-            unidad: 'litro',
-            precio: 120,
-            usos: ['concreto'],
-            descripcion: 'Aditivos para mejorar las propiedades del concreto.'
-        }
+        { id: 1, nombre: "Concreto f’c 100 kg/cm²", categoria: "Concreto", unidad: "m³", precio: 1300, resistencia: 100, usos: ["banqueta", "decorativo"], descripcion: "Concreto para banquetas, andadores y elementos no estructurales." },
+        { id: 2, nombre: "Concreto f’c 150 kg/cm²", categoria: "Concreto", unidad: "m³", precio: 1500, resistencia: 150, usos: ["firme", "pavimento", "banqueta"], descripcion: "Concreto para firmes, banquetas y pavimentos ligeros." },
+        { id: 3, nombre: "Concreto f’c 200 kg/cm²", categoria: "Concreto", unidad: "m³", precio: 1700, resistencia: 200, usos: ["losa", "muro", "firme"], descripcion: "Concreto de resistencia media para losas, firmes y muros." },
+        { id: 4, nombre: "Concreto f’c 250 kg/cm²", categoria: "Concreto", unidad: "m³", precio: 1900, resistencia: 250, usos: ["losa", "cimentación", "muro"], descripcion: "Concreto para losas, cimentaciones ligeras y elementos estructurales." },
+        { id: 5, nombre: "Concreto f’c 300 kg/cm²", categoria: "Concreto", unidad: "m³", precio: 2100, resistencia: 300, usos: ["cimentación", "losa", "muro"], descripcion: "Concreto de mayor resistencia para cimentaciones y estructuras." },
+        { id: 6, nombre: "Concreto f’c 350 kg/cm²", categoria: "Concreto", unidad: "m³", precio: 2350, resistencia: 350, usos: ["cimentación", "losa"], descripcion: "Concreto de alta resistencia para elementos de mayor carga." },
+        { id: 7, nombre: "Concreto permeable", categoria: "Concreto", unidad: "m³", precio: 2400, resistencia: 200, usos: ["pavimento", "banqueta"], descripcion: "Concreto para zonas que requieren filtración de agua." },
+        { id: 8, nombre: "Concreto estampado", categoria: "Concreto", unidad: "m³", precio: 2500, resistencia: 250, usos: ["decorativo", "banqueta"], descripcion: "Concreto decorativo para acabados arquitectónicos." },
+        { id: 9, nombre: "Concreto de fraguado rápido", categoria: "Concreto", unidad: "m³", precio: 2600, resistencia: 200, usos: ["firme", "pavimento"], descripcion: "Concreto para obras que requieren resistencia temprana." },
+        { id: 10, nombre: "Relleno fluido", categoria: "Concreto", unidad: "m³", precio: 1450, resistencia: 100, usos: ["relleno"], descripcion: "Material fluido para rellenos, zanjas y nivelaciones." },
+
+        { id: 11, nombre: "Cemento gris 50 kg", categoria: "Cementos", unidad: "bulto", precio: 220, usos: ["concreto", "muro"], descripcion: "Cemento gris para construcción general." },
+        { id: 12, nombre: "Cemento mortero 50 kg", categoria: "Cementos", unidad: "bulto", precio: 200, usos: ["muro"], descripcion: "Mortero para pegar block, tabique y trabajos de albañilería." },
+        { id: 13, nombre: "Cemento blanco 50 kg", categoria: "Cementos", unidad: "bulto", precio: 260, usos: ["decorativo"], descripcion: "Cemento blanco para acabados y elementos visibles." },
+        { id: 14, nombre: "Cemento alta resistencia 50 kg", categoria: "Cementos", unidad: "bulto", precio: 280, usos: ["cimentación", "losa"], descripcion: "Cemento para concretos de mayor desempeño." },
+        { id: 15, nombre: "Cemento impermeable 25 kg", categoria: "Cementos", unidad: "bulto", precio: 300, usos: ["cimentación", "muro"], descripcion: "Cemento con aditivos impermeables." },
+        { id: 16, nombre: "Cemento resistente a sulfatos 50 kg", categoria: "Cementos", unidad: "bulto", precio: 340, usos: ["cimentación"], descripcion: "Cemento para ambientes agresivos." },
+        { id: 17, nombre: "Mortero autocompactable", categoria: "Cementos", unidad: "bulto", precio: 260, usos: ["muro", "relleno"], descripcion: "Mortero fluido para rellenos y muros." },
+
+        { id: 18, nombre: "Arena fina", categoria: "Agregados", unidad: "tonelada", precio: 380, usos: ["relleno", "muro"], descripcion: "Arena fina para morteros, aplanados y rellenos." },
+        { id: 19, nombre: "Arena gruesa", categoria: "Agregados", unidad: "tonelada", precio: 390, usos: ["concreto", "relleno"], descripcion: "Arena gruesa para concreto y nivelaciones." },
+        { id: 20, nombre: "Arena cribada", categoria: "Agregados", unidad: "tonelada", precio: 400, usos: ["muro"], descripcion: "Arena cribada para albañilería." },
+        { id: 21, nombre: "Arena de río lavada", categoria: "Agregados", unidad: "tonelada", precio: 390, usos: ["concreto", "muro"], descripcion: "Arena lavada para mezclas limpias." },
+        { id: 22, nombre: "Arena sílica", categoria: "Agregados", unidad: "tonelada", precio: 600, usos: ["decorativo"], descripcion: "Arena especial para acabados y filtros." },
+        { id: 23, nombre: "Grava 3/4”", categoria: "Agregados", unidad: "tonelada", precio: 500, usos: ["concreto", "relleno"], descripcion: "Grava estándar para mezclas de concreto." },
+        { id: 24, nombre: "Grava 1/2”", categoria: "Agregados", unidad: "tonelada", precio: 520, usos: ["concreto", "firme"], descripcion: "Grava fina para concretos y firmes." },
+        { id: 25, nombre: "Grava 1”", categoria: "Agregados", unidad: "tonelada", precio: 540, usos: ["concreto", "cimentación"], descripcion: "Grava para concretos robustos y cimentaciones." },
+        { id: 26, nombre: "Grava basáltica", categoria: "Agregados", unidad: "tonelada", precio: 560, usos: ["concreto"], descripcion: "Agregado basáltico para concretos de alto desempeño." },
+        { id: 27, nombre: "Base hidráulica", categoria: "Agregados", unidad: "tonelada", precio: 320, usos: ["pavimento", "firme"], descripcion: "Material granular para bases y pavimentos." },
+        { id: 28, nombre: "Sub-base de banco", categoria: "Agregados", unidad: "tonelada", precio: 340, usos: ["pavimento"], descripcion: "Material para terracerías y subbases." },
+        { id: 29, nombre: "Tezontle rojo", categoria: "Agregados", unidad: "tonelada", precio: 420, usos: ["relleno", "decorativo"], descripcion: "Tezontle para relleno ligero y jardinería." },
+        { id: 30, nombre: "Tezontle negro", categoria: "Agregados", unidad: "tonelada", precio: 430, usos: ["relleno", "decorativo"], descripcion: "Tezontle oscuro para rellenos y paisajismo." },
+        { id: 31, nombre: "Piedra bola", categoria: "Agregados", unidad: "tonelada", precio: 450, usos: ["decorativo", "relleno"], descripcion: "Piedra redondeada para paisajismo y drenaje." },
+        { id: 32, nombre: "Cascajo limpio", categoria: "Agregados", unidad: "tonelada", precio: 250, usos: ["relleno"], descripcion: "Material para relleno y nivelación." },
+
+        { id: 33, nombre: "Servicio de bombeo", categoria: "Servicios", unidad: "servicio", precio: 1200, usos: ["concreto"], descripcion: "Servicio de bombeo de concreto." },
+        { id: 34, nombre: "Renta de bomba pluma", categoria: "Servicios", unidad: "servicio", precio: 6500, usos: ["concreto"], descripcion: "Bombeo para obras grandes o de difícil acceso." },
+        { id: 35, nombre: "Transporte y descarga", categoria: "Servicios", unidad: "servicio", precio: 650, usos: ["concreto"], descripcion: "Servicio de entrega de materiales en obra." },
+        { id: 36, nombre: "Asesoría técnica en sitio", categoria: "Servicios", unidad: "servicio", precio: 950, usos: ["concreto"], descripcion: "Visita técnica para recomendación de material." },
+        { id: 37, nombre: "Renta de vibrador", categoria: "Servicios", unidad: "servicio", precio: 550, usos: ["concreto"], descripcion: "Renta de vibrador para compactar concreto." },
+        { id: 38, nombre: "Renta de revolvedora", categoria: "Servicios", unidad: "servicio", precio: 700, usos: ["concreto"], descripcion: "Equipo para mezcla en sitio." },
+        { id: 39, nombre: "Aplicación de curador", categoria: "Servicios", unidad: "servicio", precio: 1500, usos: ["concreto"], descripcion: "Aplicación de compuesto de curado." },
+        { id: 40, nombre: "Servicio de encofrado", categoria: "Servicios", unidad: "servicio", precio: 850, usos: ["losa", "muro"], descripcion: "Apoyo con cimbra y encofrado." },
+
+        { id: 41, nombre: "Aditivo retardante", categoria: "Aditivos", unidad: "litro", precio: 110, usos: ["concreto"], descripcion: "Retarda el fraguado del concreto." },
+        { id: 42, nombre: "Aditivo acelerante", categoria: "Aditivos", unidad: "litro", precio: 130, usos: ["concreto"], descripcion: "Acelera el fraguado del concreto." },
+        { id: 43, nombre: "Plastificante", categoria: "Aditivos", unidad: "litro", precio: 100, usos: ["concreto"], descripcion: "Mejora la trabajabilidad de la mezcla." },
+        { id: 44, nombre: "Superplastificante", categoria: "Aditivos", unidad: "litro", precio: 160, usos: ["concreto"], descripcion: "Reduce agua y mejora fluidez." },
+        { id: 45, nombre: "Impermeabilizante integral", categoria: "Aditivos", unidad: "litro", precio: 120, usos: ["concreto"], descripcion: "Ayuda a reducir permeabilidad." },
+        { id: 46, nombre: "Fibra de polipropileno", categoria: "Aditivos", unidad: "kg", precio: 90, usos: ["concreto"], descripcion: "Reduce fisuración plástica." },
+        { id: 47, nombre: "Fibra de acero", categoria: "Aditivos", unidad: "kg", precio: 150, usos: ["concreto"], descripcion: "Refuerzo para pisos industriales." },
+        { id: 48, nombre: "Fibra de vidrio", categoria: "Aditivos", unidad: "kg", precio: 120, usos: ["concreto"], descripcion: "Refuerzo para elementos prefabricados." },
+        { id: 49, nombre: "Pigmento rojo", categoria: "Aditivos", unidad: "kg", precio: 80, usos: ["decorativo"], descripcion: "Pigmento para concreto decorativo." },
+        { id: 50, nombre: "Pigmento negro", categoria: "Aditivos", unidad: "kg", precio: 90, usos: ["decorativo"], descripcion: "Pigmento para acabados oscuros." },
+        { id: 51, nombre: "Pigmento amarillo", categoria: "Aditivos", unidad: "kg", precio: 85, usos: ["decorativo"], descripcion: "Pigmento para concreto decorativo." },
+        { id: 52, nombre: "Pigmento azul", categoria: "Aditivos", unidad: "kg", precio: 90, usos: ["decorativo"], descripcion: "Pigmento para acabados especiales." },
+        { id: 53, nombre: "Reductor de agua", categoria: "Aditivos", unidad: "litro", precio: 105, usos: ["concreto"], descripcion: "Reduce agua sin perder trabajabilidad." },
+        { id: 54, nombre: "Incorporador de aire", categoria: "Aditivos", unidad: "litro", precio: 100, usos: ["concreto"], descripcion: "Mejora durabilidad ante cambios climáticos." },
+        { id: 55, nombre: "Anticongelante", categoria: "Aditivos", unidad: "litro", precio: 140, usos: ["concreto"], descripcion: "Para concreto en clima frío." },
+        { id: 56, nombre: "Sellador curador", categoria: "Aditivos", unidad: "litro", precio: 90, usos: ["concreto"], descripcion: "Ayuda al curado superficial." },
+        { id: 57, nombre: "Microsílice", categoria: "Aditivos", unidad: "kg", precio: 300, usos: ["concreto"], descripcion: "Mejora resistencia y durabilidad." },
+        { id: 58, nombre: "Aditivo expansivo", categoria: "Aditivos", unidad: "kg", precio: 95, usos: ["concreto"], descripcion: "Compensa contracciones." },
+        { id: 59, nombre: "Fibra de carbono", categoria: "Aditivos", unidad: "kg", precio: 450, usos: ["concreto"], descripcion: "Refuerzo especial de alto desempeño." },
+        { id: 60, nombre: "Aditivo para concreto lanzado", categoria: "Aditivos", unidad: "litro", precio: 180, usos: ["muro"], descripcion: "Aditivo para concreto proyectado." }
     ];
 
     let cotizacion = {
         items: [],
         cliente: null,
+        privacidadAceptada: false,
         folio: null,
         fecha: null,
         vigencia: null,
@@ -104,7 +88,7 @@
     }
 
     function generarFolio() {
-        return 'COT-' + Math.floor(100000 + Math.random() * 900000).toString();
+        return 'CH-DEMO-' + Math.floor(100000 + Math.random() * 900000);
     }
 
     function calcularVigencia() {
@@ -115,14 +99,272 @@
     }
 
     function obtenerNombreTipo(tipo) {
-        const tipos = {
+        const map = {
             losa: 'Losa / Firme',
             muro: 'Muro',
             relleno: 'Relleno',
             zapata: 'Zapata / Cimentación'
         };
 
-        return tipos[tipo] || 'Elemento';
+        return map[tipo] || 'Elemento';
+    }
+
+    function drawGrid(ctx, w, h) {
+        ctx.save();
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.lineWidth = 1;
+
+        const size = 24;
+
+        for (let x = 0; x <= w; x += size) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, h);
+            ctx.stroke();
+        }
+
+        for (let y = 0; y <= h; y += size) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(w, y);
+            ctx.stroke();
+        }
+
+        ctx.restore();
+    }
+
+    function drawFace(ctx, points, fillColor, strokeColor) {
+        ctx.save();
+        ctx.fillStyle = fillColor;
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+
+        for (let i = 1; i < points.length; i += 1) {
+            ctx.lineTo(points[i].x, points[i].y);
+        }
+
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = strokeColor;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.restore();
+    }
+
+    function drawDimensions3D(ctx, pts, color) {
+        const p0 = pts[0];
+        const p1 = pts[1];
+        const p3 = pts[3];
+        const p4 = pts[4];
+
+        ctx.save();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 1.2;
+
+        const offsetL = 24;
+
+        ctx.beginPath();
+        ctx.moveTo(p0.x, p0.y + offsetL);
+        ctx.lineTo(p1.x, p1.y + offsetL);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(p0.x, p0.y + offsetL - 5);
+        ctx.lineTo(p0.x, p0.y + offsetL + 5);
+        ctx.moveTo(p1.x, p1.y + offsetL - 5);
+        ctx.lineTo(p1.x, p1.y + offsetL + 5);
+        ctx.stroke();
+
+        const xA = p0.x - 24;
+
+        ctx.beginPath();
+        ctx.moveTo(xA, p0.y);
+        ctx.lineTo(xA, p3.y);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(xA - 5, p0.y);
+        ctx.lineTo(xA + 5, p0.y);
+        ctx.moveTo(xA - 5, p3.y);
+        ctx.lineTo(xA + 5, p3.y);
+        ctx.stroke();
+
+        const xH = p0.x - 54;
+
+        ctx.beginPath();
+        ctx.moveTo(xH, p0.y);
+        ctx.lineTo(xH, p4.y);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(xH - 5, p0.y);
+        ctx.lineTo(xH + 5, p0.y);
+        ctx.moveTo(xH - 5, p4.y);
+        ctx.lineTo(xH + 5, p4.y);
+        ctx.stroke();
+
+        ctx.restore();
+    }
+
+    function renderizarPreviewTerreno(largo, ancho, espesor, tipo) {
+        const canvas = document.getElementById('terrenoCanvas');
+        const container = document.getElementById('previewTerreno');
+
+        if (!canvas || !container) return;
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        const area = largo * ancho;
+        const volumen = area * espesor;
+
+        document.getElementById('previewTipo').textContent = obtenerNombreTipo(tipo);
+        document.getElementById('previewLargo').textContent = largo.toFixed(2);
+        document.getElementById('previewAncho').textContent = ancho.toFixed(2);
+        document.getElementById('previewEspesor').textContent = espesor.toFixed(2);
+        document.getElementById('previewArea').textContent = area.toFixed(2);
+        document.getElementById('previewVolumen').textContent = volumen.toFixed(2);
+
+        container.classList.remove('hidden');
+
+        const w = canvas.width;
+        const h = canvas.height;
+
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = '#f8fafc';
+        ctx.fillRect(0, 0, w, h);
+        drawGrid(ctx, w, h);
+
+        const vertices3D = [
+            { x: 0, y: 0, z: 0 },
+            { x: largo, y: 0, z: 0 },
+            { x: largo, y: ancho, z: 0 },
+            { x: 0, y: ancho, z: 0 },
+            { x: 0, y: 0, z: espesor },
+            { x: largo, y: 0, z: espesor },
+            { x: largo, y: ancho, z: espesor },
+            { x: 0, y: ancho, z: espesor }
+        ];
+
+        const iso = vertices3D.map(v => ({
+            x: v.x - v.y,
+            y: (v.x + v.y) * 0.5 - v.z
+        }));
+
+        let minX = Infinity;
+        let maxX = -Infinity;
+        let minY = Infinity;
+        let maxY = -Infinity;
+
+        iso.forEach(v => {
+            minX = Math.min(minX, v.x);
+            maxX = Math.max(maxX, v.x);
+            minY = Math.min(minY, v.y);
+            maxY = Math.max(maxY, v.y);
+        });
+
+        const bboxW = maxX - minX;
+        const bboxH = maxY - minY;
+
+        const padX = 80;
+        const padY = 80;
+        const availW = w - padX * 2;
+        const availH = h - padY * 2;
+        const scale = Math.min(availW / (bboxW || 1), availH / (bboxH || 1)) * 0.9;
+
+        const offsetX = padX + (availW - bboxW * scale) / 2 - minX * scale;
+        const offsetY = padY + (availH - bboxH * scale) / 2 - minY * scale;
+
+        const pts = iso.map(v => ({
+            x: v.x * scale + offsetX,
+            y: v.y * scale + offsetY
+        }));
+
+        let colorTop = '#bfdbfe';
+        let colorRight = '#93c5fd';
+        let colorLeft = '#60a5fa';
+        let colorLine = '#1e3a8a';
+
+        if (tipo === 'relleno') {
+            colorTop = '#fef9c3';
+            colorRight = '#fde68a';
+            colorLeft = '#fcd34d';
+            colorLine = '#92400e';
+        }
+
+        if (tipo === 'zapata') {
+            colorTop = '#d1d5db';
+            colorRight = '#9ca3af';
+            colorLeft = '#6b7280';
+            colorLine = '#374151';
+        }
+
+        if (tipo === 'muro') {
+            colorTop = '#fecaca';
+            colorRight = '#fca5a5';
+            colorLeft = '#f87171';
+            colorLine = '#7f1d1d';
+        }
+
+        drawFace(ctx, [pts[4], pts[5], pts[1], pts[0]], colorRight, colorLine);
+        drawFace(ctx, [pts[5], pts[6], pts[2], pts[1]], colorLeft, colorLine);
+        drawFace(ctx, [pts[4], pts[5], pts[6], pts[7]], colorTop, colorLine);
+
+        ctx.save();
+        ctx.strokeStyle = colorLine;
+        ctx.lineWidth = 1.5;
+
+        const edges = [
+            [0, 1], [1, 2], [2, 3], [3, 0],
+            [4, 5], [5, 6], [6, 7], [7, 4],
+            [0, 4], [1, 5], [2, 6], [3, 7]
+        ];
+
+        edges.forEach(([a, b]) => {
+            ctx.beginPath();
+            ctx.moveTo(pts[a].x, pts[a].y);
+            ctx.lineTo(pts[b].x, pts[b].y);
+            ctx.stroke();
+        });
+
+        ctx.restore();
+
+        //drawDimensions3D(ctx, pts, 'rgba(0, 0, 0, 0.35)');
+    }
+
+    function calcularRecomendacion(largo, ancho, espesor, tipo) {
+        const area = largo * ancho;
+
+        if (tipo === 'relleno') {
+            return 'Para rellenos y nivelaciones se recomienda revisar agregados como arena, grava o base hidráulica, dependiendo de la compactación requerida.';
+        }
+
+        let resistencia = 200;
+
+        if (tipo === 'losa') {
+            resistencia = area <= 20 ? 150 : area <= 50 ? 200 : 250;
+        }
+
+        if (tipo === 'muro') {
+            resistencia = area <= 20 ? 200 : 250;
+        }
+
+        if (tipo === 'zapata') {
+            resistencia = area <= 10 ? 250 : 300;
+        }
+
+        return `Se sugiere utilizar concreto de aproximadamente f’c ${resistencia} kg/cm² para ${obtenerNombreTipo(tipo).toLowerCase()} con estas dimensiones.`;
+    }
+
+    function mostrarRecomendacion(texto) {
+        const container = document.getElementById('recommendation');
+        const textEl = document.getElementById('recommendationText');
+
+        if (!container || !textEl) return;
+
+        textEl.textContent = texto;
+        container.classList.remove('hidden');
     }
 
     function cargarProductos() {
@@ -133,19 +375,31 @@
 
         const tipo = document.getElementById('filterTipo')?.value || '';
         const unidad = document.getElementById('filterUnidad')?.value || '';
+        const resistencia = document.getElementById('filterResistencia')?.value || '';
         const uso = document.getElementById('filterUso')?.value || '';
         const busqueda = document.getElementById('searchProducto')?.value.toLowerCase() || '';
 
-        const filtrados = productos.filter((producto) => {
-            const coincideTipo = tipo ? producto.categoria === tipo : true;
-            const coincideUnidad = unidad ? producto.unidad === unidad : true;
-            const coincideUso = uso ? producto.usos.includes(uso) : true;
-            const coincideBusqueda = busqueda ? producto.nombre.toLowerCase().includes(busqueda) : true;
+        if (!tipo && !unidad && !resistencia && !uso && !busqueda) {
+            grid.innerHTML = `
+                <div class="product-card">
+                    <h3>Aplica filtros para ver productos</h3>
+                    <p>Selecciona categoría, unidad, resistencia, uso o utiliza la búsqueda para mostrar resultados.</p>
+                </div>
+            `;
+            return;
+        }
 
-            return coincideTipo && coincideUnidad && coincideUso && coincideBusqueda;
+        const filtrados = productos.filter(p => {
+            const okTipo = tipo ? p.categoria === tipo : true;
+            const okUnidad = unidad ? p.unidad === unidad : true;
+            const okResistencia = resistencia ? p.resistencia && p.resistencia.toString() === resistencia : true;
+            const okUso = uso ? p.usos && p.usos.includes(uso) : true;
+            const okBusqueda = busqueda ? p.nombre.toLowerCase().includes(busqueda) : true;
+
+            return okTipo && okUnidad && okResistencia && okUso && okBusqueda;
         });
 
-        if (filtrados.length === 0) {
+        if (!filtrados.length) {
             grid.innerHTML = `
                 <div class="product-card">
                     <h3>Sin resultados</h3>
@@ -155,18 +409,18 @@
             return;
         }
 
-        filtrados.forEach((producto) => {
+        filtrados.forEach(p => {
             const card = document.createElement('div');
             card.className = 'product-card fade-in';
 
+            const resistenciaText = p.resistencia ? ` | f’c ${p.resistencia} kg/cm²` : '';
+
             card.innerHTML = `
-                <h3>${producto.nombre}</h3>
-                <p class="product-info">Categoría: ${producto.categoria} | Unidad: ${producto.unidad}</p>
-                <p>${producto.descripcion}</p>
-                <p class="price">${formatoMoneda(producto.precio)}</p>
-                <button class="btn primary add-btn" data-id="${producto.id}">
-                    Agregar a cotización
-                </button>
+                <h3>${p.nombre}</h3>
+                <p class="product-info">Categoría: ${p.categoria} | Unidad: ${p.unidad}${resistenciaText}</p>
+                <p>${p.descripcion}</p>
+                <p class="price">${formatoMoneda(p.precio)}</p>
+                <button class="btn primary add-btn" data-id="${p.id}">Agregar a cotización</button>
             `;
 
             grid.appendChild(card);
@@ -174,10 +428,10 @@
     }
 
     function agregarProducto(id) {
-        const producto = productos.find((p) => p.id === id);
+        const producto = productos.find(p => p.id === id);
         if (!producto) return;
 
-        const existente = cotizacion.items.find((item) => item.id === id);
+        const existente = cotizacion.items.find(item => item.id === id);
 
         if (existente) {
             existente.cantidad += 1;
@@ -195,12 +449,12 @@
     }
 
     function eliminarItem(id) {
-        cotizacion.items = cotizacion.items.filter((item) => item.id !== id);
+        cotizacion.items = cotizacion.items.filter(item => item.id !== id);
         actualizarResumen();
     }
 
     function actualizarCantidad(id, nuevaCantidad) {
-        const item = cotizacion.items.find((it) => it.id === id);
+        const item = cotizacion.items.find(it => it.id === id);
 
         if (item) {
             item.cantidad = nuevaCantidad > 0 ? nuevaCantidad : 1;
@@ -210,20 +464,11 @@
     }
 
     function calcularTotales() {
-        let subtotal = 0;
-
-        cotizacion.items.forEach((item) => {
-            subtotal += item.precio * item.cantidad;
-        });
-
+        const subtotal = cotizacion.items.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
         const costoEntrega = subtotal * 0.05;
         const total = subtotal + costoEntrega;
 
-        return {
-            subtotal,
-            costoEntrega,
-            total
-        };
+        return { subtotal, costoEntrega, total };
     }
 
     function actualizarResumen() {
@@ -246,40 +491,35 @@
 
         if (cotizacion.items.length === 0) {
             totalContainer?.classList.add('hidden');
-
             if (btnGenerar) btnGenerar.disabled = true;
             if (btnEnviarWA) btnEnviarWA.disabled = true;
             if (btnDescargar) btnDescargar.disabled = true;
             if (btnLimpiar) btnLimpiar.disabled = true;
-
             return;
         }
 
-        cotizacion.items.forEach((item) => {
-            const li = document.createElement('div');
-            li.className = 'cotizacion-item fade-in';
+        cotizacion.items.forEach(item => {
+            const row = document.createElement('div');
+            row.className = 'cotizacion-item fade-in';
 
-            li.innerHTML = `
-                <span><strong>${item.nombre}</strong></span>
-                <span>
-                    <input type="number" min="1" value="${item.cantidad}" class="qty-input" data-id="${item.id}">
-                    ${item.unidad}
-                </span>
+            row.innerHTML = `
+                <span>${item.nombre}</span>
+                <span><input type="number" min="1" value="${item.cantidad}" class="qty-input" data-id="${item.id}"></span>
                 <span>${formatoMoneda(item.precio)}</span>
                 <span>${formatoMoneda(item.precio * item.cantidad)}</span>
                 <button class="remove-btn" data-id="${item.id}" aria-label="Eliminar">×</button>
             `;
 
-            lista.appendChild(li);
+            lista.appendChild(row);
         });
 
         const { subtotal, costoEntrega, total } = calcularTotales();
 
-        if (subtotalEl) subtotalEl.textContent = subtotal.toFixed(2);
-        if (costoEntregaEl) costoEntregaEl.textContent = costoEntrega.toFixed(2);
-        if (totalEl) totalEl.textContent = total.toFixed(2);
-        if (vigenciaEl) vigenciaEl.textContent = cotizacion.vigencia || '--';
-        if (folioEl) folioEl.textContent = cotizacion.folio || '--';
+        subtotalEl.textContent = subtotal.toFixed(2);
+        costoEntregaEl.textContent = costoEntrega.toFixed(2);
+        totalEl.textContent = total.toFixed(2);
+        vigenciaEl.textContent = cotizacion.vigencia || '--';
+        folioEl.textContent = cotizacion.folio || '--';
 
         totalContainer?.classList.remove('hidden');
 
@@ -287,254 +527,6 @@
         if (btnEnviarWA) btnEnviarWA.disabled = false;
         if (btnDescargar) btnDescargar.disabled = false;
         if (btnLimpiar) btnLimpiar.disabled = false;
-    }
-
-    function renderizarPreviewTerreno(largo, ancho, espesor, tipo) {
-        const canvas = document.getElementById('terrenoCanvas');
-        const previewContainer = document.getElementById('previewTerreno');
-
-        if (!canvas || !previewContainer) return;
-
-        const ctx = canvas.getContext('2d');
-        if (!ctx) return;
-
-        previewContainer.classList.remove('hidden');
-
-        const area = largo * ancho;
-        const volumen = area * espesor;
-
-        document.getElementById('previewTipo').textContent = obtenerNombreTipo(tipo);
-        document.getElementById('previewLargo').textContent = largo.toFixed(2);
-        document.getElementById('previewAncho').textContent = ancho.toFixed(2);
-        document.getElementById('previewEspesor').textContent = espesor.toFixed(2);
-        document.getElementById('previewArea').textContent = area.toFixed(2);
-        document.getElementById('previewVolumen').textContent = volumen.toFixed(2);
-
-        const w = canvas.width;
-        const h = canvas.height;
-
-        ctx.clearRect(0, 0, w, h);
-
-        ctx.fillStyle = '#f8fafc';
-        ctx.fillRect(0, 0, w, h);
-
-        dibujarGrid(ctx, w, h);
-
-        ctx.fillStyle = '#00265b';
-        ctx.font = 'bold 20px Arial';
-        ctx.textAlign = 'left';
-        ctx.fillText(`Previsualización: ${obtenerNombreTipo(tipo)}`, 24, 34);
-
-        const padding = 70;
-        const areaX = padding;
-        const areaY = 70;
-        const areaW = w - padding * 2;
-        const areaH = h - 135;
-
-        const largoSeguro = Math.max(largo, 1);
-        const anchoSeguro = Math.max(ancho, 1);
-
-        let dibujoLargo = largoSeguro;
-        let dibujoAncho = anchoSeguro;
-
-        if (tipo === 'muro') {
-            dibujoLargo = largoSeguro;
-            dibujoAncho = Math.max(espesor * 8, anchoSeguro);
-        }
-
-        const escala = Math.min(areaW / dibujoLargo, areaH / dibujoAncho);
-
-        const dibujoW = dibujoLargo * escala;
-        const dibujoH = dibujoAncho * escala;
-
-        const rectX = areaX + (areaW - dibujoW) / 2;
-        const rectY = areaY + (areaH - dibujoH) / 2;
-
-        let colorRelleno = '#dbeafe';
-        let colorBorde = '#1d4ed8';
-        let colorSombra = 'rgba(29, 78, 216, 0.16)';
-
-        if (tipo === 'relleno') {
-            colorRelleno = '#fef3c7';
-            colorBorde = '#d97706';
-            colorSombra = 'rgba(217, 119, 6, 0.18)';
-        }
-
-        if (tipo === 'zapata') {
-            colorRelleno = '#e5e7eb';
-            colorBorde = '#374151';
-            colorSombra = 'rgba(55, 65, 81, 0.16)';
-        }
-
-        if (tipo === 'muro') {
-            colorRelleno = '#fee2e2';
-            colorBorde = '#dc2626';
-            colorSombra = 'rgba(220, 38, 38, 0.15)';
-        }
-
-        ctx.fillStyle = colorSombra;
-        ctx.fillRect(rectX + 10, rectY + 10, dibujoW, dibujoH);
-
-        if (tipo === 'zapata') {
-            dibujarZapata(ctx, rectX, rectY, dibujoW, dibujoH, colorRelleno, colorBorde);
-        } else {
-            dibujarRectanguloPrincipal(ctx, rectX, rectY, dibujoW, dibujoH, colorRelleno, colorBorde);
-        }
-
-        if (tipo === 'relleno') {
-            dibujarTexturaRelleno(ctx, rectX, rectY, dibujoW, dibujoH);
-        }
-
-        dibujarDimensiones(ctx, rectX, rectY, dibujoW, dibujoH, largo, ancho, tipo);
-
-        ctx.fillStyle = '#00265b';
-        ctx.font = 'bold 15px Arial';
-        ctx.textAlign = 'left';
-        ctx.fillText(`Altura/Espesor: ${espesor.toFixed(2)} m`, 24, h - 28);
-
-        ctx.fillStyle = '#0f172a';
-        ctx.font = 'bold 18px Arial';
-        ctx.textAlign = 'center';
-
-        const textoCentro = `${area.toFixed(2)} m² aprox.`;
-        ctx.fillText(textoCentro, rectX + dibujoW / 2, rectY + dibujoH / 2);
-
-        ctx.fillStyle = '#475569';
-        ctx.font = '13px Arial';
-        ctx.fillText(`Volumen preliminar: ${volumen.toFixed(2)} m³`, rectX + dibujoW / 2, rectY + dibujoH / 2 + 24);
-    }
-
-    function dibujarGrid(ctx, w, h) {
-        ctx.save();
-        ctx.strokeStyle = 'rgba(15, 23, 42, 0.05)';
-        ctx.lineWidth = 1;
-
-        const size = 24;
-
-        for (let x = 0; x <= w; x += size) {
-            ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, h);
-            ctx.stroke();
-        }
-
-        for (let y = 0; y <= h; y += size) {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(w, y);
-            ctx.stroke();
-        }
-
-        ctx.restore();
-    }
-
-    function dibujarRectanguloPrincipal(ctx, x, y, w, h, fill, stroke) {
-        ctx.fillStyle = fill;
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = 3;
-
-        ctx.beginPath();
-        ctx.roundRect(x, y, w, h, 8);
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle = 'rgba(255,255,255,0.35)';
-        ctx.beginPath();
-        ctx.roundRect(x + 8, y + 8, Math.max(w - 16, 0), Math.max(h * 0.22, 8), 6);
-        ctx.fill();
-    }
-
-    function dibujarZapata(ctx, x, y, w, h, fill, stroke) {
-        ctx.fillStyle = fill;
-        ctx.strokeStyle = stroke;
-        ctx.lineWidth = 3;
-
-        const topInset = Math.min(w * 0.12, 36);
-
-        ctx.beginPath();
-        ctx.moveTo(x + topInset, y);
-        ctx.lineTo(x + w - topInset, y);
-        ctx.lineTo(x + w, y + h);
-        ctx.lineTo(x, y + h);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.fillStyle = 'rgba(255,255,255,0.28)';
-        ctx.beginPath();
-        ctx.moveTo(x + topInset + 8, y + 10);
-        ctx.lineTo(x + w - topInset - 8, y + 10);
-        ctx.lineTo(x + w - 20, y + h * 0.32);
-        ctx.lineTo(x + 20, y + h * 0.32);
-        ctx.closePath();
-        ctx.fill();
-    }
-
-    function dibujarTexturaRelleno(ctx, x, y, w, h) {
-        ctx.save();
-        ctx.strokeStyle = 'rgba(146, 64, 14, 0.28)';
-        ctx.lineWidth = 1.5;
-
-        for (let i = 0; i < 18; i++) {
-            const px = x + Math.random() * w;
-            const py = y + Math.random() * h;
-
-            ctx.beginPath();
-            ctx.arc(px, py, 2 + Math.random() * 3, 0, Math.PI * 2);
-            ctx.stroke();
-        }
-
-        ctx.restore();
-    }
-
-    function dibujarDimensiones(ctx, x, y, w, h, largo, ancho, tipo) {
-        ctx.save();
-
-        ctx.strokeStyle = '#111827';
-        ctx.fillStyle = '#111827';
-        ctx.lineWidth = 1.5;
-        ctx.font = '16px Arial';
-
-        ctx.beginPath();
-        ctx.moveTo(x, y + h + 22);
-        ctx.lineTo(x + w, y + h + 22);
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.moveTo(x, y + h + 15);
-        ctx.lineTo(x, y + h + 29);
-        ctx.moveTo(x + w, y + h + 15);
-        ctx.lineTo(x + w, y + h + 29);
-        ctx.stroke();
-
-        ctx.textAlign = 'center';
-        ctx.fillText(`Largo: ${largo.toFixed(2)} m`, x + w / 2, y + h + 48);
-
-        ctx.beginPath();
-        ctx.moveTo(x - 24, y);
-        ctx.lineTo(x - 24, y + h);
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.moveTo(x - 31, y);
-        ctx.lineTo(x - 17, y);
-        ctx.moveTo(x - 31, y + h);
-        ctx.lineTo(x - 17, y + h);
-        ctx.stroke();
-
-        ctx.save();
-        ctx.translate(x - 43, y + h / 2);
-        ctx.rotate(-Math.PI / 2);
-        ctx.textAlign = 'center';
-
-        const etiquetaVertical = tipo === 'muro'
-            ? `Ancho/Base: ${ancho.toFixed(2)} m`
-            : `Ancho: ${ancho.toFixed(2)} m`;
-
-        ctx.fillText(etiquetaVertical, 0, 0);
-        ctx.restore();
-
-        ctx.restore();
     }
 
     function manejarCalculo(e) {
@@ -553,18 +545,18 @@
         document.getElementById('volumenEst').textContent = volumen.toFixed(2);
         document.getElementById('desperdicioEst').textContent = desperdicioVol.toFixed(2);
         document.getElementById('cantidadSugerida').textContent = sugerido.toFixed(2);
-
         document.getElementById('resultadoCalculo').classList.remove('hidden');
 
         renderizarPreviewTerreno(largo, ancho, altoEspesor, tipo);
+        mostrarRecomendacion(calcularRecomendacion(largo, ancho, altoEspesor, tipo));
     }
 
     function mostrarModal(mensaje, modalId = 'modal') {
         const modal = document.getElementById(modalId);
         if (!modal) return;
 
-        const msgEl = modal.querySelector('p');
-        if (msgEl) msgEl.textContent = mensaje;
+        const msg = modal.querySelector('p');
+        if (msg) msg.textContent = mensaje;
 
         modal.classList.remove('hidden');
 
@@ -585,6 +577,11 @@
     }
 
     function generarCotizacion() {
+        if (!cotizacion.items.length) {
+            mostrarModal('Agrega al menos un producto antes de generar la cotización.');
+            return;
+        }
+
         cotizacion.folio = cotizacion.folio || generarFolio();
         cotizacion.vigencia = cotizacion.vigencia || calcularVigencia();
 
@@ -601,14 +598,28 @@
     function guardarDatosCliente(e) {
         e.preventDefault();
 
-        const nombre = document.getElementById('nombreCliente').value;
-        const telefono = document.getElementById('telefonoCliente').value;
-        const correo = document.getElementById('correoCliente').value;
-        const ubicacion = document.getElementById('ubicacionEntrega').value;
-        const tipoObra = document.getElementById('tipoObra').value;
+        const aviso = document.getElementById('avisoPrivacidad');
+
+        if (!aviso || !aviso.checked) {
+            mostrarModal('Debes aceptar el aviso de privacidad para continuar.');
+            return;
+        }
+
+        const nombre = document.getElementById('nombreCliente').value.trim();
+        const telefono = document.getElementById('telefonoCliente').value.trim();
+        const correo = document.getElementById('correoCliente').value.trim();
+        const ubicacion = document.getElementById('ubicacionEntrega').value.trim();
+        const tipoObra = document.getElementById('tipoObra').value.trim();
         const fechaEntrega = document.getElementById('fechaEntrega').value;
         const requiereFactura = document.getElementById('requiereFactura').value;
-        const comentarios = document.getElementById('comentarios').value;
+        const comentarios = document.getElementById('comentarios').value.trim();
+
+        if (!nombre || !telefono || !correo || !ubicacion || !tipoObra || !fechaEntrega) {
+            mostrarModal('Completa todos los campos obligatorios antes de continuar.');
+            return;
+        }
+
+        const { costoEntrega, total } = calcularTotales();
 
         cotizacion.cliente = {
             nombre,
@@ -621,12 +632,12 @@
             comentarios
         };
 
+        cotizacion.privacidadAceptada = true;
         cotizacion.fecha = new Date().toLocaleDateString('es-MX');
-
-        const { costoEntrega, total } = calcularTotales();
-
         cotizacion.entrega = costoEntrega;
         cotizacion.total = total;
+        cotizacion.folio = cotizacion.folio || generarFolio();
+        cotizacion.vigencia = cotizacion.vigencia || calcularVigencia();
 
         const cotizaciones = JSON.parse(localStorage.getItem('cotizaciones') || '[]');
 
@@ -638,66 +649,194 @@
 
         localStorage.setItem('cotizaciones', JSON.stringify(cotizaciones));
 
-        mostrarModal('¡Cotización guardada! Revisa el panel interno para verla.');
-
-        cotizacion = {
-            items: [],
-            cliente: null,
-            folio: null,
-            fecha: null,
-            vigencia: null,
-            entrega: null,
-            total: null
-        };
-
-        document.getElementById('clienteForm').reset();
         document.getElementById('clienteFormContainer').classList.add('hidden');
+
+        mostrarModal('Datos guardados correctamente. Ya puedes descargar el PDF o enviar la cotización.');
 
         actualizarResumen();
     }
 
     function enviarWhatsApp() {
-        mostrarModal('Se simula el envío de la cotización por WhatsApp. En una versión real se conectaría con WhatsApp Business o CRM.');
+        if (!cotizacion.cliente || !cotizacion.privacidadAceptada) {
+            generarCotizacion();
+            mostrarModal('Primero captura tus datos y acepta el aviso de privacidad.');
+            return;
+        }
+
+        mostrarModal('Se simula el envío de la cotización por WhatsApp. En producción se conectaría con WhatsApp Business.');
     }
 
     function descargarCotizacion() {
-        const folio = cotizacion.folio || generarFolio();
-        const vigencia = cotizacion.vigencia || calcularVigencia();
+        if (!cotizacion.cliente || !cotizacion.privacidadAceptada) {
+            generarCotizacion();
+            mostrarModal('Primero captura tus datos y acepta el aviso de privacidad para descargar el PDF.');
+            return;
+        }
 
-        let contenido = 'Cotización Demo\n';
-        contenido += `Folio: ${folio}\n`;
-        contenido += `Vigencia: ${vigencia}\n`;
-        contenido += '\nProductos:\n';
+        try {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF({ unit: 'mm', format: 'a4' });
 
-        cotizacion.items.forEach((item) => {
-            contenido += `- ${item.nombre} | Cantidad: ${item.cantidad} ${item.unidad} | Precio unitario: ${formatoMoneda(item.precio)} | Subtotal: ${formatoMoneda(item.precio * item.cantidad)}\n`;
-        });
+            const { subtotal, costoEntrega, total } = calcularTotales();
 
-        const { subtotal, costoEntrega, total } = calcularTotales();
+            pdf.setFillColor(0, 38, 91);
+            pdf.rect(0, 0, 210, 30, 'F');
 
-        contenido += `\nSubtotal: ${formatoMoneda(subtotal)}\n`;
-        contenido += `Costo de entrega: ${formatoMoneda(costoEntrega)}\n`;
-        contenido += `Total estimado: ${formatoMoneda(total)}\n`;
-        contenido += '\nNota: Esta cotización es una demo comercial con datos ficticios.\n';
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFontSize(20);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Concretos Hidalgo', 12, 14);
 
-        const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
+            pdf.setFontSize(9);
+            pdf.setFont(undefined, 'normal');
+            pdf.text('Cotización de materiales | Documento demo / mock', 12, 22);
 
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `cotizacion_${folio}.txt`;
+            pdf.setFillColor(245, 166, 35);
+            pdf.rect(0, 30, 210, 3, 'F');
 
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+            let y = 42;
 
-        URL.revokeObjectURL(url);
+            pdf.setTextColor(0, 38, 91);
+            pdf.setFontSize(14);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Datos de cotización', 12, y);
+
+            y += 8;
+
+            pdf.setTextColor(40, 40, 40);
+            pdf.setFontSize(10);
+            pdf.setFont(undefined, 'normal');
+            pdf.text(`Folio: ${cotizacion.folio}`, 12, y);
+            pdf.text(`Fecha: ${cotizacion.fecha}`, 110, y);
+
+            y += 6;
+
+            pdf.text(`Vigencia: ${cotizacion.vigencia}`, 12, y);
+            pdf.text(`Factura: ${cotizacion.cliente.requiereFactura}`, 110, y);
+
+            y += 10;
+
+            pdf.setTextColor(0, 38, 91);
+            pdf.setFontSize(14);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Datos del cliente', 12, y);
+
+            y += 8;
+
+            pdf.setTextColor(40, 40, 40);
+            pdf.setFontSize(10);
+            pdf.setFont(undefined, 'normal');
+            pdf.text(`Nombre: ${cotizacion.cliente.nombre}`, 12, y);
+
+            y += 6;
+
+            pdf.text(`Teléfono: ${cotizacion.cliente.telefono}`, 12, y);
+            pdf.text(`Correo: ${cotizacion.cliente.correo}`, 110, y);
+
+            y += 6;
+
+            pdf.text(`Ubicación: ${cotizacion.cliente.ubicacion}`, 12, y, { maxWidth: 180 });
+
+            y += 10;
+
+            pdf.text(`Tipo de obra: ${cotizacion.cliente.tipoObra}`, 12, y);
+            pdf.text(`Entrega tentativa: ${cotizacion.cliente.fechaEntrega}`, 110, y);
+
+            y += 12;
+
+            pdf.setTextColor(0, 38, 91);
+            pdf.setFontSize(14);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Productos cotizados', 12, y);
+
+            y += 8;
+
+            pdf.setFillColor(240, 242, 245);
+            pdf.rect(12, y - 5, 186, 8, 'F');
+
+            pdf.setTextColor(30, 30, 30);
+            pdf.setFontSize(9);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Producto', 14, y);
+            pdf.text('Cant.', 95, y);
+            pdf.text('Unidad', 115, y);
+            pdf.text('P. Unit.', 140, y);
+            pdf.text('Subtotal', 168, y);
+
+            y += 7;
+
+            pdf.setFont(undefined, 'normal');
+
+            cotizacion.items.forEach(item => {
+                if (y > 265) {
+                    pdf.addPage();
+                    y = 20;
+                }
+
+                const sub = item.precio * item.cantidad;
+
+                pdf.text(item.nombre, 14, y, { maxWidth: 75 });
+                pdf.text(String(item.cantidad), 95, y);
+                pdf.text(item.unidad, 115, y);
+                pdf.text(formatoMoneda(item.precio), 140, y);
+                pdf.text(formatoMoneda(sub), 168, y);
+
+                y += 7;
+            });
+
+            y += 6;
+
+            pdf.setDrawColor(220, 220, 220);
+            pdf.line(12, y, 198, y);
+
+            y += 8;
+
+            pdf.setFont(undefined, 'bold');
+            pdf.text(`Subtotal: ${formatoMoneda(subtotal)}`, 120, y);
+
+            y += 6;
+
+            pdf.text(`Entrega estimada: ${formatoMoneda(costoEntrega)}`, 120, y);
+
+            y += 8;
+
+            pdf.setTextColor(0, 38, 91);
+            pdf.setFontSize(13);
+            pdf.text(`Total estimado: ${formatoMoneda(total)}`, 120, y);
+
+            y += 14;
+
+            pdf.setTextColor(90, 90, 90);
+            pdf.setFontSize(8);
+            pdf.setFont(undefined, 'normal');
+            pdf.text(
+                'Esta cotización es una demo comercial con datos ficticios. Los precios, productos, costos de entrega y recomendaciones son referenciales y deben validarse con un especialista de Concretos Hidalgo.',
+                12,
+                y,
+                { maxWidth: 185 }
+            );
+
+            y += 12;
+
+            pdf.text(
+                'Aviso de privacidad: el cliente confirma que aceptó el uso de sus datos proporcionados exclusivamente para fines de contacto, seguimiento comercial y generación de esta cotización demo.',
+                12,
+                y,
+                { maxWidth: 185 }
+            );
+
+            pdf.save(`cotizacion_${cotizacion.folio}.pdf`);
+        } catch (error) {
+            console.error(error);
+            mostrarModal('No se pudo generar el PDF. Revisa que tengas conexión a internet para cargar jsPDF.');
+        }
     }
 
     function limpiarCotizacion() {
         cotizacion = {
             items: [],
             cliente: null,
+            privacidadAceptada: false,
             folio: null,
             fecha: null,
             vigencia: null,
@@ -705,7 +844,10 @@
             total: null
         };
 
+        const clienteForm = document.getElementById('clienteForm');
         const formContainer = document.getElementById('clienteFormContainer');
+
+        if (clienteForm) clienteForm.reset();
         if (formContainer) formContainer.classList.add('hidden');
 
         actualizarResumen();
@@ -726,30 +868,26 @@
 
         const hoy = new Date().toLocaleDateString('es-MX');
 
-        cotizaciones.forEach((cotizacionGuardada, index) => {
-            if (cotizacionGuardada.fecha === hoy) countDia++;
+        cotizaciones.forEach((c, index) => {
+            if (c.fecha === hoy) countDia += 1;
+            montoTotal += c.total || 0;
 
-            montoTotal += cotizacionGuardada.total || 0;
-
-            if (
-                cotizacionGuardada.estatus === 'nueva' ||
-                cotizacionGuardada.estatus === 'en seguimiento'
-            ) {
-                pendientes++;
+            if (c.estatus === 'nueva' || c.estatus === 'en seguimiento') {
+                pendientes += 1;
             }
 
-            if (cotizacionGuardada.estatus === 'cerrada') {
-                cerradas++;
+            if (c.estatus === 'cerrada') {
+                cerradas += 1;
             }
 
             const tr = document.createElement('tr');
 
             tr.innerHTML = `
-                <td>${cotizacionGuardada.folio || '--'}</td>
-                <td>${cotizacionGuardada.cliente ? cotizacionGuardada.cliente.nombre : '--'}</td>
-                <td>${formatoMoneda(cotizacionGuardada.total || 0)}</td>
-                <td>${cotizacionGuardada.estatus || 'nueva'}</td>
-                <td>${cotizacionGuardada.fecha || '--'}</td>
+                <td>${c.folio || '--'}</td>
+                <td>${c.cliente ? c.cliente.nombre : '--'}</td>
+                <td>${formatoMoneda(c.total || 0)}</td>
+                <td>${c.estatus || 'nueva'}</td>
+                <td>${c.fecha || '--'}</td>
                 <td>
                     <button class="action-btn view" data-index="${index}">Ver</button>
                     <button class="action-btn follow" data-index="${index}">Dar seguimiento</button>
@@ -788,15 +926,14 @@
         if (!cot) return;
 
         if (btn.classList.contains('view')) {
-            let detalle = `Folio: ${cot.folio}\n`;
+            let detalle = `Folio: ${cot.folio || '--'}\n`;
             detalle += `Cliente: ${cot.cliente?.nombre || '--'}\n`;
             detalle += `Teléfono: ${cot.cliente?.telefono || '--'}\n`;
             detalle += `Total: ${formatoMoneda(cot.total || 0)}\n`;
-            detalle += `Estatus: ${cot.estatus}\n`;
-            detalle += `Vendedor: ${cot.vendedor || 'Vendedor demo'}\n`;
-            detalle += '\nProductos:\n';
+            detalle += `Estatus: ${cot.estatus || 'nueva'}\n\n`;
+            detalle += 'Productos:\n';
 
-            cot.items.forEach((item) => {
+            cot.items.forEach(item => {
                 detalle += `- ${item.nombre} x ${item.cantidad} ${item.unidad}\n`;
             });
 
@@ -836,40 +973,13 @@
         }
     }
 
-    function configurarPreviewEnVivo() {
-        const camposPreview = [
-            'tipoCalculo',
-            'largo',
-            'ancho',
-            'altoEspesor'
-        ];
-
-        camposPreview.forEach((id) => {
-            const el = document.getElementById(id);
-
-            if (!el) return;
-
-            el.addEventListener('input', () => {
-                const tipo = document.getElementById('tipoCalculo').value;
-                const largo = parseFloat(document.getElementById('largo').value) || 0;
-                const ancho = parseFloat(document.getElementById('ancho').value) || 0;
-                const altoEspesor = parseFloat(document.getElementById('altoEspesor').value) || 0;
-
-                if (largo > 0 && ancho > 0 && altoEspesor > 0) {
-                    renderizarPreviewTerreno(largo, ancho, altoEspesor, tipo);
-                }
-            });
-        });
-    }
-
     document.addEventListener('DOMContentLoaded', () => {
         configurarMenuMovil();
         cargarProductos();
         actualizarResumen();
         cargarCotizacionesPanel();
-        configurarPreviewEnVivo();
 
-        ['filterTipo', 'filterUnidad', 'filterUso', 'searchProducto'].forEach((id) => {
+        ['filterTipo', 'filterUnidad', 'filterResistencia', 'filterUso', 'searchProducto'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.addEventListener('input', cargarProductos);
         });
@@ -877,7 +987,7 @@
         const grid = document.getElementById('productGrid');
 
         if (grid) {
-            grid.addEventListener('click', (e) => {
+            grid.addEventListener('click', e => {
                 if (e.target.classList.contains('add-btn')) {
                     const id = parseInt(e.target.getAttribute('data-id'), 10);
                     agregarProducto(id);
@@ -888,16 +998,15 @@
         const listaCot = document.getElementById('cotizacionLista');
 
         if (listaCot) {
-            listaCot.addEventListener('input', (e) => {
+            listaCot.addEventListener('input', e => {
                 if (e.target.classList.contains('qty-input')) {
                     const id = parseInt(e.target.getAttribute('data-id'), 10);
                     const valor = parseInt(e.target.value, 10);
-
                     actualizarCantidad(id, valor);
                 }
             });
 
-            listaCot.addEventListener('click', (e) => {
+            listaCot.addEventListener('click', e => {
                 if (e.target.classList.contains('remove-btn')) {
                     const id = parseInt(e.target.getAttribute('data-id'), 10);
                     eliminarItem(id);
@@ -906,10 +1015,7 @@
         }
 
         const calcForm = document.getElementById('calcForm');
-
-        if (calcForm) {
-            calcForm.addEventListener('submit', manejarCalculo);
-        }
+        if (calcForm) calcForm.addEventListener('submit', manejarCalculo);
 
         const btnGenerar = document.getElementById('btnGenerarCot');
         if (btnGenerar) btnGenerar.addEventListener('click', generarCotizacion);
@@ -924,10 +1030,7 @@
         if (btnLimpiar) btnLimpiar.addEventListener('click', limpiarCotizacion);
 
         const clienteForm = document.getElementById('clienteForm');
-
-        if (clienteForm) {
-            clienteForm.addEventListener('submit', guardarDatosCliente);
-        }
+        if (clienteForm) clienteForm.addEventListener('submit', guardarDatosCliente);
 
         const modal = document.getElementById('modal');
         const modalClose = document.getElementById('modalClose');
@@ -935,28 +1038,38 @@
         if (modal && modalClose) {
             modalClose.addEventListener('click', () => cerrarModal('modal'));
 
-            modal.addEventListener('click', (e) => {
+            modal.addEventListener('click', e => {
                 if (e.target === modal) cerrarModal('modal');
             });
         }
 
-        const adminModal = document.getElementById('adminModal');
-        const adminModalClose = document.getElementById('adminModalClose');
+        const contactModal = document.getElementById('contactModal');
+        const contactClose = document.getElementById('contactModalClose');
 
-        if (adminModal) {
-            if (adminModalClose) {
-                adminModalClose.addEventListener('click', () => cerrarModal('adminModal'));
-            }
+        if (contactModal && contactClose) {
+            contactClose.addEventListener('click', () => cerrarModal('contactModal'));
 
-            adminModal.addEventListener('click', (e) => {
-                if (e.target === adminModal) cerrarModal('adminModal');
+            contactModal.addEventListener('click', e => {
+                if (e.target === contactModal) cerrarModal('contactModal');
+            });
+        }
+
+        const btnContactar = document.getElementById('btnContactar');
+
+        if (btnContactar) {
+            btnContactar.addEventListener('click', () => {
+                const modalContacto = document.getElementById('contactModal');
+                if (!modalContacto) return;
+
+                modalContacto.classList.remove('hidden');
+
+                requestAnimationFrame(() => {
+                    modalContacto.classList.add('show');
+                });
             });
         }
 
         const tabla = document.getElementById('tablaCotizaciones');
-
-        if (tabla) {
-            tabla.addEventListener('click', manejarAccionPanel);
-        }
+        if (tabla) tabla.addEventListener('click', manejarAccionPanel);
     });
 })();
