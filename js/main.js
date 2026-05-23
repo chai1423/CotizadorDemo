@@ -474,6 +474,7 @@
     function actualizarResumen() {
         const lista = document.getElementById('cotizacionLista');
         const subtotalEl = document.getElementById('subtotal');
+        const navCantidad = document.getElementById('navCantidad');
         const costoEntregaEl = document.getElementById('costoEntrega');
         const totalEl = document.getElementById('total');
         const vigenciaEl = document.getElementById('vigencia');
@@ -488,6 +489,15 @@
         if (!lista) return;
 
         lista.innerHTML = '';
+
+        const totalProductos = cotizacion.items.reduce(
+            (acc, item) => acc + item.cantidad,
+            0
+        );
+
+        if (navCantidad) {
+            navCantidad.textContent = totalProductos;
+        }
 
         if (cotizacion.items.length === 0) {
             totalContainer?.classList.add('hidden');
