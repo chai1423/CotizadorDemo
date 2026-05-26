@@ -27,44 +27,117 @@
     
     <section class="admin" id="admin">
         <div class="container">
-            <h2>Panel de Cotizaciones</h2>
-            <p class="section-description">Revisa las cotizaciones generadas en la demo.</p>
-            <!-- Tarjetas de métricas -->
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <h3 id="metricCount">0</h3>
-                    <p>Cotizaciones del día</p>
+            <div class="admin-header">
+                <div>
+                    <span class="admin-kicker">Resumen comercial</span>
+                    <h2>Panel de Cotizaciones</h2>
+                    <p class="section-description">
+                        Consulta, filtra y da seguimiento a las cotizaciones generadas en la demo.
+                    </p>
                 </div>
-                <div class="metric-card">
-                    <h3 id="metricMonto">$0.00</h3>
-                    <p>Monto cotizado</p>
-                </div>
-                <div class="metric-card">
-                    <h3 id="metricPendientes">0</h3>
-                    <p>Cotizaciones pendientes</p>
-                </div>
-                <div class="metric-card">
-                    <h3 id="metricConversion">0%</h3>
-                    <p>Conversión estimada</p>
+                <div class="admin-header-card">
+                    <span>Pipeline estimado</span>
+                    <strong id="metricPipeline">$0.00</strong>
                 </div>
             </div>
-            <!-- Tabla de cotizaciones -->
-            <div class="table-responsive">
-                <table class="cot-table">
-                    <thead>
-                        <tr>
-                            <th>Folio</th>
-                            <th>Cliente</th>
-                            <th>Total</th>
-                            <th>Estatus</th>
-                            <th>Fecha</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tablaCotizaciones">
-                        <!-- Se insertarán filas dinámicamente -->
-                    </tbody>
-                </table>
+
+            <div class="admin-filters">
+                <input 
+                    id="inputBusqueda" 
+                    type="text" 
+                    placeholder="Buscar por cliente, folio, estatus o vendedor..."
+                >
+
+                <select id="selectEstatus">
+                    <option value="">Todos los estatus</option>
+                    <option value="nueva">Nueva</option>
+                    <option value="en seguimiento">En seguimiento</option>
+                    <option value="cerrada">Cerrada</option>
+                    <option value="perdida">Perdida</option>
+                </select>
+
+                <input id="inputDesde" type="date">
+                <input id="inputHasta" type="date">
+
+                <button id="btnLimpiarFiltros" class="btn primary" type="button">
+                    Limpiar filtros
+                </button>
+            </div>
+
+            <div class="metrics-grid admin-metrics">
+                <div class="metric-card">
+                    <span>Total</span>
+                    <h3 id="metricTotal">0</h3>
+                    <p>Cotizaciones registradas</p>
+                </div>
+
+                <div class="metric-card">
+                    <span>Nuevas</span>
+                    <h3 id="metricNuevas">0</h3>
+                    <p>Por contactar</p>
+                </div>
+
+                <div class="metric-card">
+                    <span>Seguimiento</span>
+                    <h3 id="metricSeguimiento">0</h3>
+                    <p>En proceso comercial</p>
+                </div>
+
+                <div class="metric-card">
+                    <span>Cerradas</span>
+                    <h3 id="metricCerradas">0</h3>
+                    <p>Oportunidades ganadas</p>
+                </div>
+
+                <div class="metric-card">
+                    <span>Perdidas</span>
+                    <h3 id="metricPerdidas">0</h3>
+                    <p>No concretadas</p>
+                </div>
+
+                <div class="metric-card">
+                    <span>Monto</span>
+                    <h3 id="metricMonto">$0.00</h3>
+                    <p>Total cotizado</p>
+                </div>
+
+                <div class="metric-card">
+                    <span>Conversión</span>
+                    <h3 id="metricConversion">0%</h3>
+                    <p>Cerradas / total</p>
+                </div>
+            </div>
+
+            <div class="admin-chart-card">
+                <div class="chart-header">
+                    <h3>Cotizaciones por estatus</h3>
+                    <p>Vista dinámica según búsqueda y filtros aplicados.</p>
+                </div>
+                <div id="estatusChart" class="status-chart"></div>
+            </div>
+
+            <div class="admin-table-card">
+                <div class="table-card-header">
+                    <h3>Listado de cotizaciones</h3>
+                    <p>Actualiza estatus o consulta el detalle completo.</p>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="cot-table">
+                        <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>Cliente</th>
+                                <th>Vendedor</th>
+                                <th>Total</th>
+                                <th>Estatus</th>
+                                <th>Fecha</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaCotizaciones"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </section>
@@ -76,13 +149,14 @@
     </footer>
     
     <!-- Modal para acciones -->
-    <div id="adminModal" class="modal hidden">
-        <div class="modal-content">
-            <span id="adminModalClose" class="modal-close">&times;</span>
-            <p id="adminModalMessage"></p>
+    <div id="detalleModal" class="modal hidden">
+        <div class="modal-content admin-detail-modal">
+            <button id="detalleModalClose" class="modal-close" type="button">&times;</button>
+            <div id="detalleContenido"></div>
         </div>
     </div>
     
     <script src="js/main.js"></script>
+    <script src="js/admin-panel.js"></script>
 </body>
 </html>
