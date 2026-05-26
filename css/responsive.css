@@ -1,3 +1,5 @@
+/* responsive.css */
+
 /*
  * Estilos responsivos para la demo de cotizador.
  * Ajustan el diseño para tabletas y móviles.
@@ -54,5 +56,20 @@
     }
     .hero-content p {
         font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .cotizacion-detail-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .cotizacion-sidebar {
+        position: static;
+        width: 100%;
+    }
+
+    .cotizacion-total {
+        max-width: none;
     }
 }

@@ -1,3 +1,5 @@
+/* styles.css */
+
 /*
  * Estilos generales para la demo del cotizador.
  */
@@ -503,9 +505,11 @@ h2 {
 }
 
 .cotizacion-item {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1.4fr 180px 1fr 1fr 32px;
     align-items: center;
+    gap: 1rem;
+
     background-color: var(--color-card);
     padding: 0.75rem;
     border-radius: var(--radius);
@@ -513,8 +517,9 @@ h2 {
     font-size: 0.9rem;
 }
 
-.cotizacion-item span {
-    flex: 1;
+.cotizacion-item span:nth-child(3),
+.cotizacion-item span:nth-child(4) {
+    text-align: right;
 }
 
 .cotizacion-item .remove-btn {
@@ -525,38 +530,175 @@ h2 {
     font-size: 1.1rem;
 }
 
+.cantidad-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.cantidad-btn {
+    width: 34px;
+    height: 34px;
+
+    border: 1px solid #bcbcbc;
+    border-radius: 8px;
+
+    background-color: #d8d8d8;
+    color: #1f1f1f;
+
+    font-size: 1.15rem;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+
+    cursor: pointer;
+    transition: var(--transition);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    line-height: 1;
+}
+
+.cantidad-btn:hover {
+    background-color: #c9c9c9;
+    transform: translateY(-1px);
+}
+
+.qty-input {
+    width: 70px;
+    height: 36px;
+
+    text-align: center;
+
+    border: 1px solid #c3c3c3;
+    border-radius: 8px;
+
+    background: #f7f7f7;
+
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+
+    color: #1f1f1f;
+}
+
+.qty-input::-webkit-inner-spin-button,
+.qty-input::-webkit-outer-spin-button {
+    display: none;
+}
+
+.qty-input {
+    -moz-appearance: textfield;
+}
+.cotizacion-main-action {
+    margin: 1rem 0 1.25rem;
+}
+
+.cotizacion-detail-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 520px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.cotizacion-sidebar {
+    position: sticky;
+    top: 130px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+
+    align-self: start;
+}
+
+.cotizacion-secondary-actions {
+    display: grid;
+    gap: 0.65rem;
+}
+
+.cotizacion-secondary-actions .btn {
+    width: 100%;
+}
+
 .cotizacion-total {
-    margin-bottom: 1rem;
-    background-color: var(--color-card);
-    padding: 1rem;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
+    margin: 0;
+
+    background: linear-gradient(135deg, #ffffff, #f7f7f7);
+    padding: 1.25rem;
+    border-radius: calc(var(--radius) * 1.5);
+
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+
+    border-left: 5px solid var(--color-secondary);
+
+    width: 100%;
+    max-width: 520px;
+
+    justify-self: stretch;
 }
 
-.cotizacion-total p {
-    margin-bottom: 0.25rem;
-    font-weight: 500;
+.total-row {
+    display: grid;
+    grid-template-columns: 1fr 140px 48px;
+    align-items: center;
+    gap: 0.5rem;
+
+    margin-bottom: 0.7rem;
+    color: var(--color-muted);
 }
 
-.cotizacion-total .total {
-    font-size: 1.2rem;
+.total-row strong {
+    text-align: right;
     color: var(--color-primary);
     font-weight: 700;
 }
 
-.cotizacion-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+.total-row span:last-child {
+    text-align: right;
+    color: var(--color-muted);
+    font-weight: 700;
 }
 
+.total-main {
+    margin-top: 0.9rem;
+    padding-top: 0.9rem;
+
+    border-top: 1px solid var(--color-border);
+
+    font-size: 1.15rem;
+    color: var(--color-primary);
+}
+
+.total-main strong {
+    font-size: 1.45rem;
+}
+
+.total-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    margin-top: 0.55rem;
+
+    font-size: 0.85rem;
+    color: var(--color-muted);
+}
+
+.total-meta strong {
+    text-align: right;
+    color: var(--color-primary);
+}
 /* Formulario cliente */
 .cliente-form-container {
     background-color: var(--color-card);
     padding: 1rem;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
+
+    width: 100%;
+    min-width: 0;
 }
 
 .cliente-form .form-row {
@@ -593,6 +735,47 @@ h2 {
 
 .privacy-row input {
     margin-right: 0.5rem;
+}
+
+.mapa-entrega {
+    width: 100%;
+    min-height: 320px;
+    height: 320px;
+    display: block;
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.mapa-ayuda {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    margin-top: 0.4rem;
+}
+
+.leaflet-control-container {
+    z-index: 400;
+}
+
+.header {
+    z-index: 2000;
+}
+
+.entrega-info {
+    background: #f8fafc;
+    border-radius: var(--radius);
+    padding: 0.9rem 1rem;
+    border-left: 4px solid var(--color-secondary);
+    margin-bottom: 1rem;
+}
+
+.entrega-info p {
+    margin: 0.25rem 0;
+}
+
+#ubicacionEntrega::placeholder {
+    color: #8a8a8a;
+    opacity: 1;
+    font-size: 0.85rem;
 }
 
 /* Pie de página */

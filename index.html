@@ -1,8 +1,11 @@
+<!-- index.html -->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <title>Cotizador Inteligente | Demo</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/responsive.css">
@@ -199,67 +202,188 @@
             <h2>Resumen de cotización</h2>
             <p class="section-description">Revisa los productos y cantidades agregadas, luego genera tu cotización.</p>
             <div id="cotizacionLista" class="cotizacion-lista"></div>
-            <div id="cotizacionTotal" class="cotizacion-total hidden">
-                <p>Subtotal: $<span id="subtotal">0.00</span> MXN</p>
-                <p>Costo de entrega: $<span id="costoEntrega">0.00</span> MXN</p>
-                <p class="total">Total estimado: $<span id="total">0.00</span> MXN</p>
-                <p class="vigencia">Vigencia: <span id="vigencia">--</span></p>
-                <p class="folio">Folio: <span id="folio">--</span></p>
+            
+            <div class="cotizacion-main-action">
+                <button id="btnGenerarCot" class="btn primary" disabled>
+                    Generar cotización
+                </button>
             </div>
-            <div class="cotizacion-actions">
-                <button id="btnGenerarCot" class="btn primary" disabled>Generar cotización</button>
-                <button id="btnEnviarWA" class="btn secondary" disabled>Simular envío WhatsApp</button>
-                <button id="btnDescargar" class="btn secondary" disabled>Descargar cotización</button>
-                <button id="btnLimpiar" class="btn danger" disabled>Limpiar cotización</button>
-            </div>
-            <!-- Formulario de cliente -->
-            <div id="clienteFormContainer" class="cliente-form-container hidden">
-                <h3>Datos del cliente</h3>
-                <form id="clienteForm" class="cliente-form">
-                    <div class="form-row">
-                        <label for="nombreCliente">Nombre</label>
-                        <input type="text" id="nombreCliente" required>
+            
+            <div class="cotizacion-detail-layout">
+            
+                <!-- FORMULARIO -->
+                <div id="clienteFormContainer" class="cliente-form-container hidden">
+            
+                    <h3>Datos del cliente</h3>
+            
+                    <form id="clienteForm" class="cliente-form">
+            
+                        <div class="form-row">
+                            <label for="nombreCliente">Nombre</label>
+                            <input type="text" id="nombreCliente" required>
+                        </div>
+            
+                        <div class="form-row">
+                            <label for="telefonoCliente">Teléfono</label>
+                            <input type="tel" id="telefonoCliente" required>
+                        </div>
+            
+                        <div class="form-row">
+                            <label for="correoCliente">Correo</label>
+                            <input type="email" id="correoCliente" required>
+                        </div>
+            
+                        <div class="form-row">
+                            <label for="ubicacionEntrega">Ubicación de entrega</label>
+            
+                            <input type="text" id="ubicacionEntrega" required
+                                placeholder="Selecciona primero la ubicación en el mapa. Después puedes ajustar la dirección manualmente.">
+                        </div>
+            
+                        <div class="form-row">
+                            <label>Selecciona la ubicación en el mapa</label>
+            
+                            <div id="mapaEntrega" class="mapa-entrega"></div>
+            
+                            <p class="mapa-ayuda">
+                                Haz clic en el mapa o mueve el marcador para estimar la distancia desde la planta.
+                            </p>
+                        </div>
+            
+                        <div id="infoEntrega" class="entrega-info hidden">
+                            <p>
+                                <strong>Distancia estimada:</strong>
+                                <span id="distanciaEntrega">--</span> km
+                            </p>
+            
+                            <p>
+                                <strong>Zona:</strong>
+                                <span id="zonaEntrega">--</span>
+                            </p>
+            
+                            <p>
+                                <strong>Porcentaje de entrega:</strong>
+                                <span id="porcentajeEntrega">--</span>
+                            </p>
+                        </div>
+            
+                        <div class="form-row">
+                            <label for="tipoObra">Tipo de obra</label>
+                            <input type="text" id="tipoObra" required>
+                        </div>
+            
+                        <div class="form-row">
+                            <label for="fechaEntrega">Fecha tentativa de entrega</label>
+                            <input type="date" id="fechaEntrega" required>
+                        </div>
+            
+                        <div class="form-row">
+                            <label for="requiereFactura">¿Requiere factura?</label>
+            
+                            <select id="requiereFactura" required>
+                                <option value="sí">Sí</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+            
+                        <div class="form-row">
+                            <label for="requiereBombeo">¿Requiere bombeo?</label>
+            
+                            <select id="requiereBombeo" required>
+                                <option value="no">No</option>
+                                <option value="sí">Sí</option>
+                                <option value="por definir">Por definir</option>
+                            </select>
+                        </div>
+            
+                        <div class="form-row">
+                            <label for="comentarios">
+                                Comentarios adicionales
+                            </label>
+            
+                            <textarea id="comentarios" rows="3"></textarea>
+                        </div>
+            
+                        <div class="form-row privacy-row">
+                            <label>
+                                <input type="checkbox" id="avisoPrivacidad" required>
+            
+                                He leído y acepto el aviso de privacidad.
+                            </label>
+                        </div>
+            
+                        <button type="submit" class="btn primary">
+                            Guardar datos
+                        </button>
+            
+                    </form>
+                </div>
+            
+                <!-- SIDEBAR -->
+                <aside class="cotizacion-sidebar hidden">
+            
+                    <div id="cotizacionTotal" class="cotizacion-total hidden">
+            
+                        <div class="total-row">
+                            <span>Subtotal:</span>
+            
+                            <strong>
+                                $<span id="subtotal">0.00</span>
+                            </strong>
+            
+                            <span>MXN</span>
+                        </div>
+            
+                        <div class="total-row">
+                            <span>Costo de entrega:</span>
+            
+                            <strong>
+                                $<span id="costoEntrega">0.00</span>
+                            </strong>
+            
+                            <span>MXN</span>
+                        </div>
+            
+                        <div class="total-row total-main">
+                            <span>Total estimado:</span>
+            
+                            <strong>
+                                $<span id="total">0.00</span>
+                            </strong>
+            
+                            <span>MXN</span>
+                        </div>
+            
+                        <div class="total-meta">
+                            <span>Vigencia:</span>
+                            <strong id="vigencia">--</strong>
+                        </div>
+            
+                        <div class="total-meta">
+                            <span>Folio:</span>
+                            <strong id="folio">--</strong>
+                        </div>
+            
                     </div>
-                    <div class="form-row">
-                        <label for="telefonoCliente">Teléfono</label>
-                        <input type="tel" id="telefonoCliente" required>
+            
+                    <div class="cotizacion-secondary-actions">
+            
+                        <button id="btnEnviarWA" class="btn secondary" disabled>
+                            Simular envío WhatsApp
+                        </button>
+            
+                        <button id="btnDescargar" class="btn secondary" disabled>
+                            Descargar cotización
+                        </button>
+            
+                        <button id="btnLimpiar" class="btn danger" disabled>
+                            Limpiar cotización
+                        </button>
+            
                     </div>
-                    <div class="form-row">
-                        <label for="correoCliente">Correo</label>
-                        <input type="email" id="correoCliente" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="ubicacionEntrega">Ubicación de entrega</label>
-                        <input type="text" id="ubicacionEntrega" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="tipoObra">Tipo de obra</label>
-                        <input type="text" id="tipoObra" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="fechaEntrega">Fecha tentativa de entrega</label>
-                        <input type="date" id="fechaEntrega" required>
-                    </div>
-                    <div class="form-row">
-                        <label for="requiereFactura">¿Requiere factura?</label>
-                        <select id="requiereFactura" required>
-                            <option value="sí">Sí</option>
-                            <option value="no">No</option>
-                        </select>
-                    </div>
-                    <div class="form-row">
-                        <label for="comentarios">Comentarios adicionales</label>
-                        <textarea id="comentarios" rows="3"></textarea>
-                    </div>
-                    <!-- Aviso de privacidad -->
-                    <div class="form-row privacy-row">
-                        <label>
-                            <input type="checkbox" id="avisoPrivacidad" required>
-                            He leído y acepto el aviso de privacidad
-                        </label>
-                    </div>
-                    <button type="submit" class="btn primary">Guardar datos</button>
-                </form>
+            
+                </aside>
+            
             </div>
         </div>
     </section>
@@ -297,6 +421,7 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </body>

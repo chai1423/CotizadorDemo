@@ -1,3 +1,5 @@
+// main.js
+
 (function () {
     'use strict';
 
@@ -78,6 +80,29 @@
         entrega: null,
         total: null
     };
+
+    const PLANTA_COORDS = {
+        lat: 20.0513,
+        lng: -99.3435
+    };
+
+    const ZONAS_ENTREGA = [
+        { nombre: 'Zona local', maxKm: 20, porcentaje: 0.05 },
+        { nombre: 'Zona cercana', maxKm: 50, porcentaje: 0.08 },
+        { nombre: 'Zona media', maxKm: 90, porcentaje: 0.12 },
+        { nombre: 'Zona lejana', maxKm: Infinity, porcentaje: 0.16 }
+    ];
+
+    let entregaSeleccionada = null;
+    let mapaEntrega = null;
+    let marcadorEntrega = null;
+
+    function formatoNumero(valor) {
+        return valor.toLocaleString('es-MX', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
 
     function formatoMoneda(valor) {
         return valor.toLocaleString('es-MX', {
@@ -463,12 +488,80 @@
         actualizarResumen();
     }
 
+    function obtenerZonaEntrega(distanciaKm) {
+        return ZONAS_ENTREGA.find(zona => distanciaKm <= zona.maxKm) || ZONAS_ENTREGA[ZONAS_ENTREGA.length - 1];
+    }
+
+    function calcularDistanciaKm(origen, destino) {
+        const R = 6371;
+        const dLat = (destino.lat - origen.lat) * Math.PI / 180;
+        const dLng = (destino.lng - origen.lng) * Math.PI / 180;
+
+        const lat1 = origen.lat * Math.PI / 180;
+        const lat2 = destino.lat * Math.PI / 180;
+
+        const a =
+            Math.sin(dLat / 2) ** 2 +
+            Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2;
+
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return R * c;
+    }
+
+    async function obtenerDireccionDesdeCoordenadas(lat, lng) {
+        const inputDireccion = document.getElementById('ubicacionEntrega');
+        if (!inputDireccion) return;
+
+        inputDireccion.value = 'Buscando dirección...';
+
+        try {
+            const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&accept-language=es`;
+
+            const res = await fetch(url);
+            const data = await res.json();
+
+            inputDireccion.value = data.display_name || `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+        } catch (error) {
+            inputDireccion.value = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+        }
+    }
+
+    async function actualizarEntregaDesdeCoordenadas(lat, lng) {
+        const destino = { lat, lng };
+        const distanciaKm = calcularDistanciaKm(PLANTA_COORDS, destino);
+        const zona = obtenerZonaEntrega(distanciaKm);
+
+        entregaSeleccionada = {
+            lat,
+            lng,
+            distanciaKm,
+            zonaNombre: zona.nombre,
+            porcentaje: zona.porcentaje
+        };
+
+        const infoEntrega = document.getElementById('infoEntrega');
+        const distanciaEntrega = document.getElementById('distanciaEntrega');
+        const zonaEntrega = document.getElementById('zonaEntrega');
+        const porcentajeEntrega = document.getElementById('porcentajeEntrega');
+
+        if (infoEntrega) infoEntrega.classList.remove('hidden');
+        if (distanciaEntrega) distanciaEntrega.textContent = distanciaKm.toFixed(2);
+        if (zonaEntrega) zonaEntrega.textContent = zona.nombre;
+        if (porcentajeEntrega) porcentajeEntrega.textContent = `${(zona.porcentaje * 100).toFixed(1)}%`;
+
+        await obtenerDireccionDesdeCoordenadas(lat, lng);
+
+        actualizarResumen();
+    }
+
     function calcularTotales() {
         const subtotal = cotizacion.items.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
-        const costoEntrega = subtotal * 0.05;
+        const porcentajeEntrega = entregaSeleccionada ? entregaSeleccionada.porcentaje : 0;
+        const costoEntrega = subtotal * porcentajeEntrega;
         const total = subtotal + costoEntrega;
 
-        return { subtotal, costoEntrega, total };
+        return { subtotal, costoEntrega, total, porcentajeEntrega };
     }
 
     function actualizarResumen() {
@@ -514,7 +607,33 @@
 
             row.innerHTML = `
                 <span>${item.nombre}</span>
-                <span><input type="number" min="1" value="${item.cantidad}" class="qty-input" data-id="${item.id}"></span>
+                <span>
+                    <div class="cantidad-control">
+                        <button
+                            class="cantidad-btn disminuir-btn"
+                            data-id="${item.id}"
+                            type="button"
+                        >
+                            −
+                        </button>
+
+                        <input
+                            type="number"
+                            min="1"
+                            value="${item.cantidad}"
+                            class="qty-input"
+                            data-id="${item.id}"
+                        >
+
+                        <button
+                            class="cantidad-btn aumentar-btn"
+                            data-id="${item.id}"
+                            type="button"
+                        >
+                            +
+                        </button>
+                    </div>
+                </span>
                 <span>${formatoMoneda(item.precio)}</span>
                 <span>${formatoMoneda(item.precio * item.cantidad)}</span>
                 <button class="remove-btn" data-id="${item.id}" aria-label="Eliminar">×</button>
@@ -523,11 +642,35 @@
             lista.appendChild(row);
         });
 
+        document.querySelectorAll('.disminuir-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = Number(btn.dataset.id);
+
+                const item = cotizacion.items.find(i => i.id === id);
+
+                if (!item) return;
+
+                actualizarCantidad(id, Math.max(1, item.cantidad - 1));
+            });
+        });
+
+        document.querySelectorAll('.aumentar-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const id = Number(btn.dataset.id);
+
+                const item = cotizacion.items.find(i => i.id === id);
+
+                if (!item) return;
+
+                actualizarCantidad(id, item.cantidad + 1);
+            });
+        });
+
         const { subtotal, costoEntrega, total } = calcularTotales();
 
-        subtotalEl.textContent = subtotal.toFixed(2);
-        costoEntregaEl.textContent = costoEntrega.toFixed(2);
-        totalEl.textContent = total.toFixed(2);
+        subtotalEl.textContent = formatoNumero(subtotal);
+        costoEntregaEl.textContent = formatoNumero(costoEntrega);
+        totalEl.textContent = formatoNumero(total);
         vigenciaEl.textContent = cotizacion.vigencia || '--';
         folioEl.textContent = cotizacion.folio || '--';
 
@@ -598,10 +741,26 @@
         actualizarResumen();
 
         const formContainer = document.getElementById('clienteFormContainer');
+        const sidebar = document.querySelector('.cotizacion-sidebar');
 
         if (formContainer) {
             formContainer.classList.remove('hidden');
-            formContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (sidebar) sidebar.classList.remove('hidden');
+
+            setTimeout(() => {
+                if (mapaEntrega) {
+                    mapaEntrega.invalidateSize();
+                    mapaEntrega.setView([PLANTA_COORDS.lat, PLANTA_COORDS.lng], 10);
+                }
+            }, 100);
+
+            const yOffset = -125;
+            const y = formContainer.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+            window.scrollTo({
+                top: y,
+                behavior: 'smooth'
+            });
         }
     }
 
@@ -622,10 +781,11 @@
         const tipoObra = document.getElementById('tipoObra').value.trim();
         const fechaEntrega = document.getElementById('fechaEntrega').value;
         const requiereFactura = document.getElementById('requiereFactura').value;
+        const requiereBombeo = document.getElementById('requiereBombeo').value;
         const comentarios = document.getElementById('comentarios').value.trim();
 
-        if (!nombre || !telefono || !correo || !ubicacion || !tipoObra || !fechaEntrega) {
-            mostrarModal('Completa todos los campos obligatorios antes de continuar.');
+        if (!nombre || !telefono || !correo || !ubicacion || !tipoObra || !fechaEntrega || !entregaSeleccionada) {
+            mostrarModal('Completa todos los campos obligatorios y selecciona la ubicación de entrega en el mapa.');
             return;
         }
 
@@ -639,7 +799,9 @@
             tipoObra,
             fechaEntrega,
             requiereFactura,
-            comentarios
+            requiereBombeo,
+            comentarios,
+            entregaMapa: entregaSeleccionada,
         };
 
         cotizacion.privacidadAceptada = true;
@@ -659,8 +821,6 @@
 
         localStorage.setItem('cotizaciones', JSON.stringify(cotizaciones));
 
-        document.getElementById('clienteFormContainer').classList.add('hidden');
-
         mostrarModal('Datos guardados correctamente. Ya puedes descargar el PDF o enviar la cotización.');
 
         actualizarResumen();
@@ -669,17 +829,27 @@
     function enviarWhatsApp() {
         if (!cotizacion.cliente || !cotizacion.privacidadAceptada) {
             generarCotizacion();
-            mostrarModal('Primero captura tus datos y acepta el aviso de privacidad.');
+            mostrarModal('Primero, captura tus datos y acepta el aviso de privacidad.');
             return;
         }
 
         mostrarModal('Se simula el envío de la cotización por WhatsApp. En producción se conectaría con WhatsApp Business.');
     }
 
-    function descargarCotizacion() {
+    function cargarImagenPDF(src) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = src;
+        });
+    }
+
+    async function descargarCotizacion() {
         if (!cotizacion.cliente || !cotizacion.privacidadAceptada) {
             generarCotizacion();
-            mostrarModal('Primero captura tus datos y acepta el aviso de privacidad para descargar el PDF.');
+            mostrarModal('Primero, captura tus datos y acepta el aviso de privacidad para descargar el PDF.');
             return;
         }
 
@@ -689,22 +859,34 @@
 
             const { subtotal, costoEntrega, total } = calcularTotales();
 
-            pdf.setFillColor(0, 38, 91);
-            pdf.rect(0, 0, 210, 30, 'F');
+            const logo = await cargarImagenPDF('img/logo3.png');
 
-            pdf.setTextColor(255, 255, 255);
-            pdf.setFontSize(20);
+            pdf.setFillColor(255, 199, 0);
+            pdf.rect(0, 0, 210, 32, 'F');
+
+            pdf.addImage(logo, 'PNG', 14, 6, 32, 19);
+
+            pdf.setTextColor(20, 20, 20);
+            pdf.setFontSize(18);
             pdf.setFont(undefined, 'bold');
-            pdf.text('Concretos Hidalgo', 12, 14);
+            pdf.text('CONCRETOS HIDALGO', 42, 15);
 
             pdf.setFontSize(9);
             pdf.setFont(undefined, 'normal');
-            pdf.text('Cotización de materiales | Documento demo / mock', 12, 22);
+            pdf.text('Cotización de materiales | Documento demo / mock', 42, 23);
 
-            pdf.setFillColor(245, 166, 35);
-            pdf.rect(0, 30, 210, 3, 'F');
+            pdf.setFontSize(8);
+            pdf.text(`Folio: ${cotizacion.folio}`, 150, 11);
+            pdf.text(`Fecha: ${cotizacion.fecha}`, 150, 18);
+            pdf.text(`Vigencia: ${cotizacion.vigencia}`, 150, 25);
 
-            let y = 42;
+            pdf.setFillColor(245, 170, 0);
+            pdf.rect(0, 32, 210, 3, 'F');
+
+            pdf.setFillColor(20, 20, 20);
+            pdf.rect(0, 35, 210, 4, 'F');
+
+            let y = 50;
 
             pdf.setTextColor(0, 38, 91);
             pdf.setFontSize(14);
@@ -723,6 +905,9 @@
 
             pdf.text(`Vigencia: ${cotizacion.vigencia}`, 12, y);
             pdf.text(`Factura: ${cotizacion.cliente.requiereFactura}`, 110, y);
+
+            y += 6;
+            pdf.text(`Bombeo: ${cotizacion.cliente.requiereBombeo}`, 12, y);
 
             y += 10;
 
@@ -751,6 +936,29 @@
 
             pdf.text(`Tipo de obra: ${cotizacion.cliente.tipoObra}`, 12, y);
             pdf.text(`Entrega tentativa: ${cotizacion.cliente.fechaEntrega}`, 110, y);
+
+            y += 12;
+
+            const entregaMapa = cotizacion.cliente.entregaMapa;
+
+            pdf.setTextColor(0, 38, 91);
+            pdf.setFontSize(14);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Información de entrega', 12, y);
+
+            y += 8;
+
+            pdf.setTextColor(40, 40, 40);
+            pdf.setFontSize(10);
+            pdf.setFont(undefined, 'normal');
+
+            if (entregaMapa) {
+                pdf.text(`Distancia estimada: ${entregaMapa.distanciaKm.toFixed(2)} km`, 12, y);
+
+                y += 6;
+
+                pdf.text(`Costo de entrega: ${formatoMoneda(costoEntrega)}`, 12, y);
+            }
 
             y += 12;
 
@@ -808,13 +1016,21 @@
 
             pdf.text(`Entrega estimada: ${formatoMoneda(costoEntrega)}`, 120, y);
 
-            y += 8;
+            y += 12;
 
-            pdf.setTextColor(0, 38, 91);
-            pdf.setFontSize(13);
-            pdf.text(`Total estimado: ${formatoMoneda(total)}`, 120, y);
+            pdf.setFillColor(245, 245, 245);
+            pdf.roundedRect(118, y - 8, 80, 18, 2, 2, 'F');
 
-            y += 14;
+            pdf.setTextColor(20, 20, 20);
+            pdf.setFontSize(10);
+            pdf.setFont(undefined, 'normal');
+            pdf.text('TOTAL ESTIMADO', 123, y - 1);
+
+            pdf.setFontSize(14);
+            pdf.setFont(undefined, 'bold');
+            pdf.text(formatoMoneda(total), 123, y + 6);
+
+            y += 18;
 
             pdf.setTextColor(90, 90, 90);
             pdf.setFontSize(8);
@@ -856,9 +1072,11 @@
 
         const clienteForm = document.getElementById('clienteForm');
         const formContainer = document.getElementById('clienteFormContainer');
+        const sidebar = document.querySelector('.cotizacion-sidebar');
 
         if (clienteForm) clienteForm.reset();
         if (formContainer) formContainer.classList.add('hidden');
+        if (sidebar) sidebar.classList.add('hidden');
 
         actualizarResumen();
     }
@@ -983,11 +1201,65 @@
         }
     }
 
+    function inicializarMapaEntrega() {
+        const mapaEl = document.getElementById('mapaEntrega');
+
+        const redIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        if (!mapaEl || typeof L === 'undefined') return;
+
+        mapaEntrega = L.map(mapaEl, {
+            zoomControl: true,
+            preferCanvas: true
+        }).setView([PLANTA_COORDS.lat, PLANTA_COORDS.lng], 10);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(mapaEntrega);
+
+        requestAnimationFrame(() => {
+            mapaEntrega.invalidateSize();
+            mapaEntrega.setView([PLANTA_COORDS.lat, PLANTA_COORDS.lng], 10);
+        });
+
+        L.marker([PLANTA_COORDS.lat, PLANTA_COORDS.lng], {
+            icon: redIcon
+        })
+            .addTo(mapaEntrega)
+            .bindPopup('Planta/Fábrica');
+
+        marcadorEntrega = L.marker([PLANTA_COORDS.lat, PLANTA_COORDS.lng], {
+            draggable: true
+        }).addTo(mapaEntrega);
+
+        marcadorEntrega.bindPopup('Ubicación de entrega').openPopup();
+
+        mapaEntrega.on('click', e => {
+            marcadorEntrega.setLatLng(e.latlng);
+            actualizarEntregaDesdeCoordenadas(e.latlng.lat, e.latlng.lng);
+        });
+
+        marcadorEntrega.on('dragend', e => {
+            const pos = e.target.getLatLng();
+            actualizarEntregaDesdeCoordenadas(pos.lat, pos.lng);
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         configurarMenuMovil();
         cargarProductos();
         actualizarResumen();
         cargarCotizacionesPanel();
+        inicializarMapaEntrega();
 
         ['filterTipo', 'filterUnidad', 'filterResistencia', 'filterUso', 'searchProducto'].forEach(id => {
             const el = document.getElementById(id);
