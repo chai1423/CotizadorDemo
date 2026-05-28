@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Interno | Cotizador Demo</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/animations.css">
@@ -64,47 +65,59 @@
                 </button>
             </div>
 
-            <div class="metrics-grid admin-metrics">
-                <div class="metric-card">
-                    <span>Total</span>
-                    <h3 id="metricTotal">0</h3>
-                    <p>Cotizaciones registradas</p>
+            <div class="admin-summary-card">
+                <div class="table-card-header">
+                    <h3>Resumen ejecutivo</h3>
+                    <p>Lectura rápida del pipeline comercial con los filtros activos.</p>
                 </div>
 
-                <div class="metric-card">
-                    <span>Nuevas</span>
-                    <h3 id="metricNuevas">0</h3>
-                    <p>Por contactar</p>
-                </div>
-
-                <div class="metric-card">
-                    <span>Seguimiento</span>
-                    <h3 id="metricSeguimiento">0</h3>
-                    <p>En proceso comercial</p>
-                </div>
-
-                <div class="metric-card">
-                    <span>Cerradas</span>
-                    <h3 id="metricCerradas">0</h3>
-                    <p>Oportunidades ganadas</p>
-                </div>
-
-                <div class="metric-card">
-                    <span>Perdidas</span>
-                    <h3 id="metricPerdidas">0</h3>
-                    <p>No concretadas</p>
-                </div>
-
-                <div class="metric-card">
-                    <span>Monto</span>
-                    <h3 id="metricMonto">$0.00</h3>
-                    <p>Total cotizado</p>
-                </div>
-
-                <div class="metric-card">
-                    <span>Conversión</span>
-                    <h3 id="metricConversion">0%</h3>
-                    <p>Cerradas / total</p>
+                <div class="table-responsive">
+                    <table class="summary-table">
+                        <thead>
+                            <tr>
+                                <th>Indicador</th>
+                                <th>Valor</th>
+                                <th>Lectura</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Total</td>
+                                <td><strong id="metricTotal">0</strong></td>
+                                <td>Cotizaciones registradas</td>
+                            </tr>
+                            <tr>
+                                <td>Nuevas</td>
+                                <td><strong id="metricNuevas">0</strong></td>
+                                <td>Por contactar</td>
+                            </tr>
+                            <tr>
+                                <td>Seguimiento</td>
+                                <td><strong id="metricSeguimiento">0</strong></td>
+                                <td>En proceso comercial</td>
+                            </tr>
+                            <tr>
+                                <td>Cerradas</td>
+                                <td><strong id="metricCerradas">0</strong></td>
+                                <td>Oportunidades ganadas</td>
+                            </tr>
+                            <tr>
+                                <td>Perdidas</td>
+                                <td><strong id="metricPerdidas">0</strong></td>
+                                <td>No concretadas</td>
+                            </tr>
+                            <tr>
+                                <td>Monto</td>
+                                <td><strong id="metricMonto">$0.00</strong></td>
+                                <td>Total cotizado</td>
+                            </tr>
+                            <tr>
+                                <td>Conversión</td>
+                                <td><strong id="metricConversion">0%</strong></td>
+                                <td>Cerradas / total</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -114,6 +127,81 @@
                     <p>Vista dinámica según búsqueda y filtros aplicados.</p>
                 </div>
                 <div id="estatusChart" class="status-chart"></div>
+            </div>
+
+            <div class="analytics-grid">
+                <div class="admin-chart-card">
+                    <div class="chart-header chart-header-with-controls">
+                        <div>
+                            <h3>Mezcla de ventas por línea</h3>
+                            <p>Detecta qué familias de productos mueven más monto o volumen.</p>
+                        </div>
+
+                        <div class="chart-controls">
+                            <select id="selectMixMetrica">
+                                <option value="monto">Monto</option>
+                                <option value="cantidad">Cantidad</option>
+                            </select>
+
+                            <select id="selectMixTop">
+                                <option value="5">Top 5</option>
+                                <option value="3">Top 3</option>
+                                <option value="10">Top 10</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="mixProductosChart" class="business-chart"></div>
+                </div>
+
+                <div class="admin-chart-card">
+                    <div class="chart-header chart-header-with-controls">
+                        <div>
+                            <h3>Tendencia comercial</h3>
+                            <p>Compara evolución por día con el estatus que necesites revisar.</p>
+                        </div>
+
+                        <div class="chart-controls">
+                            <select id="selectTendenciaMetrica">
+                                <option value="monto">Monto</option>
+                                <option value="cotizaciones">Cotizaciones</option>
+                                <option value="m3">m³ concreto</option>
+                            </select>
+
+                            <select id="selectTendenciaEstatus">
+                                <option value="">Todos</option>
+                                <option value="nueva">Nueva</option>
+                                <option value="en seguimiento">En seguimiento</option>
+                                <option value="cerrada">Cerrada</option>
+                                <option value="perdida">Perdida</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="tendenciaChart" class="trend-chart"></div>
+                </div>
+            </div>
+
+            <div class="admin-chart-card">
+                <div class="chart-header chart-header-with-controls">
+                    <div>
+                        <h3>Mapa de concentración comercial</h3>
+                        <p>Visualiza de dónde llegan las cotizaciones y dónde se concentra el valor del pipeline.</p>
+                    </div>
+
+                    <div class="chart-controls">
+                        <select id="selectMapaMetrica">
+                            <option value="monto">Monto</option>
+                            <option value="cotizaciones">Cotizaciones</option>
+                            <option value="m3">m³ concreto</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="geo-dashboard">
+                    <div id="geoHeatmap" class="geo-heatmap"></div>
+                    <div id="geoRanking" class="geo-ranking"></div>
+                </div>
             </div>
 
             <div class="admin-table-card">
@@ -156,6 +244,7 @@
         </div>
     </div>
     
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="js/main.js"></script>
     <script src="js/admin-panel.js"></script>
 </body>

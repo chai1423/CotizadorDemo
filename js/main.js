@@ -1204,6 +1204,8 @@
     function inicializarMapaEntrega() {
         const mapaEl = document.getElementById('mapaEntrega');
 
+        if (!mapaEl || typeof L === 'undefined') return;
+
         const redIcon = new L.Icon({
             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
@@ -1213,8 +1215,6 @@
             popupAnchor: [1, -34],
             shadowSize: [41, 41]
         });
-
-        if (!mapaEl || typeof L === 'undefined') return;
 
         mapaEntrega = L.map(mapaEl, {
             zoomControl: true,

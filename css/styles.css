@@ -964,34 +964,9 @@ h2 {
     color: var(--color-text);
 }
 
-.admin-metrics {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    margin-bottom: 1.5rem;
-}
-
-.admin-metrics .metric-card {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    border-left: 4px solid var(--color-secondary);
-}
-
-.admin-metrics .metric-card span {
-    display: block;
-    margin-bottom: 0.25rem;
-    color: var(--color-muted);
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-}
-
-.admin-metrics .metric-card h3 {
-    margin-bottom: 0.25rem;
-}
-
 .admin-chart-card,
-.admin-table-card {
+.admin-table-card,
+.admin-summary-card {
     margin-bottom: 1.5rem;
     padding: 1.1rem;
     border-radius: calc(var(--radius) * 1.2);
@@ -1000,9 +975,81 @@ h2 {
     border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
+.admin-summary-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.admin-summary-card .table-card-header {
+    padding: 1.1rem 1.1rem 0;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.summary-table th,
+.summary-table td {
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.summary-table th {
+    background-color: #1f2937;
+    color: #fff;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.summary-table tbody tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+.summary-table tbody tr:hover {
+    background-color: #fffbeb;
+}
+
+.summary-table td:first-child {
+    width: 28%;
+    color: var(--color-primary);
+    font-weight: 800;
+}
+
+.summary-table td:nth-child(2) {
+    width: 24%;
+}
+
+.summary-table td:nth-child(2) strong {
+    display: inline-flex;
+    min-width: 88px;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0.38rem 0.55rem;
+    border-radius: 8px;
+    background-color: rgba(242, 183, 5, 0.18);
+    color: #1f2937;
+    font-size: 1rem;
+}
+
+.summary-table td:last-child {
+    color: var(--color-muted);
+}
+
 .chart-header,
 .table-card-header {
     margin-bottom: 1rem;
+}
+
+.chart-header-with-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
 }
 
 .chart-header h3,
@@ -1015,6 +1062,30 @@ h2 {
 .table-card-header p {
     color: var(--color-muted);
     font-size: 0.9rem;
+}
+
+.chart-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    justify-content: flex-end;
+}
+
+.chart-controls select {
+    min-width: 130px;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid #d1d5db;
+    border-radius: var(--radius);
+    background-color: #fff;
+    color: var(--color-text);
+    font-size: 0.85rem;
+}
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: stretch;
 }
 
 .status-chart {
@@ -1096,6 +1167,283 @@ h2 {
 
 .status-bar-fill.badge-perdida {
     background-color: #ef4444;
+}
+
+.business-chart {
+    display: grid;
+    gap: 0.95rem;
+}
+
+.business-bar-row {
+    display: grid;
+    grid-template-columns: minmax(180px, 1.2fr) minmax(140px, 1fr) minmax(110px, auto);
+    gap: 0.85rem;
+    align-items: center;
+    padding: 0.75rem;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+}
+
+.business-bar-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    min-width: 0;
+}
+
+.bar-rank {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #1f2937;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+}
+
+.business-bar-meta strong,
+.business-bar-value {
+    color: var(--color-primary);
+}
+
+.business-bar-meta span:not(.bar-rank) {
+    display: block;
+    margin-top: 0.12rem;
+    color: var(--color-muted);
+    font-size: 0.78rem;
+}
+
+.business-bar-track {
+    height: 16px;
+    border-radius: 999px;
+    overflow: hidden;
+    background-color: #e5e7eb;
+}
+
+.business-bar-fill {
+    height: 100%;
+    min-width: 5px;
+    border-radius: 999px;
+    transition: width 0.25s ease;
+    background: linear-gradient(90deg, #f2b705, #d89f00);
+}
+
+.business-bar-fill.category-concreto {
+    background: linear-gradient(90deg, #f2b705, #1f2937);
+}
+
+.business-bar-fill.category-cementos {
+    background: linear-gradient(90deg, #9ca3af, #4b5563);
+}
+
+.business-bar-fill.category-agregados {
+    background: linear-gradient(90deg, #60a5fa, #1d4ed8);
+}
+
+.business-bar-fill.category-servicios {
+    background: linear-gradient(90deg, #22c55e, #15803d);
+}
+
+.business-bar-fill.category-aditivos {
+    background: linear-gradient(90deg, #f97316, #c2410c);
+}
+
+.business-bar-value {
+    text-align: right;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.trend-chart {
+    min-height: 330px;
+}
+
+.trend-summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+}
+
+.trend-summary div {
+    padding: 0.8rem;
+    border-radius: var(--radius);
+    background-color: #f8fafc;
+    border: 1px solid #e5e7eb;
+}
+
+.trend-summary span {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--color-muted);
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.trend-summary strong {
+    color: var(--color-primary);
+    font-size: 1.05rem;
+}
+
+.trend-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    overflow: visible;
+}
+
+.trend-axis {
+    stroke: #d1d5db;
+    stroke-width: 1.4;
+}
+
+.trend-area {
+    fill: rgba(242, 183, 5, 0.18);
+}
+
+.trend-line {
+    fill: none;
+    stroke: #1f2937;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.trend-point {
+    fill: var(--color-secondary);
+    stroke: #1f2937;
+    stroke-width: 2;
+}
+
+.trend-label {
+    fill: #6b7280;
+    font-size: 0.72rem;
+}
+
+.empty-chart {
+    display: flex;
+    min-height: 180px;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: var(--radius);
+    background-color: #f8fafc;
+    color: var(--color-muted);
+    text-align: center;
+}
+
+.geo-dashboard {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(260px, 0.8fr);
+    gap: 1rem;
+    align-items: stretch;
+}
+
+.geo-heatmap {
+    min-height: 360px;
+    height: 420px;
+    border-radius: var(--radius);
+    background:
+        linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+}
+
+.geo-heatmap .leaflet-container {
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    font-family: 'Roboto', sans-serif;
+}
+
+.geo-heatmap .leaflet-control-attribution {
+    font-size: 0.68rem;
+}
+
+.geo-heatmap .leaflet-popup-content {
+    margin: 0.75rem 0.85rem;
+    font-size: 0.82rem;
+    line-height: 1.45;
+}
+
+.geo-ranking {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.geo-ranking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem;
+    border-radius: var(--radius);
+    background-color: #1f2937;
+    color: #fff;
+}
+
+.geo-ranking-header span {
+    color: #e5e7eb;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.geo-ranking-row {
+    padding: 0.85rem;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    background-color: #fff;
+}
+
+.geo-ranking-label {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.55rem;
+}
+
+.geo-ranking-label span {
+    width: 26px;
+    height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: rgba(242, 183, 5, 0.2);
+    color: #7a5700;
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.geo-ranking-label strong {
+    color: var(--color-primary);
+}
+
+.geo-ranking-track {
+    height: 10px;
+    margin-bottom: 0.45rem;
+    border-radius: 999px;
+    overflow: hidden;
+    background-color: #e5e7eb;
+}
+
+.geo-ranking-track div {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #f2b705, #1f2937);
+}
+
+.geo-ranking-row p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 0.82rem;
+    font-weight: 700;
 }
 
 .client-cell {
@@ -1247,14 +1595,47 @@ h2 {
         grid-template-columns: 1fr 1fr;
     }
 
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-header-with-controls {
+        flex-direction: column;
+    }
+
+    .chart-controls {
+        justify-content: flex-start;
+    }
+
     .status-bar-row {
         grid-template-columns: 1fr;
         gap: 0.35rem;
+    }
+
+    .business-bar-row {
+        grid-template-columns: 1fr;
+    }
+
+    .business-bar-value {
+        text-align: left;
+    }
+
+    .geo-dashboard {
+        grid-template-columns: 1fr;
     }
 }
 
 @media (max-width: 640px) {
     .admin-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-controls,
+    .chart-controls select {
+        width: 100%;
+    }
+
+    .trend-summary {
         grid-template-columns: 1fr;
     }
 
